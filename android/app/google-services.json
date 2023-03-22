@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "202208977773",
+    "project_id": "flutteremergency",
+    "storage_bucket": "flutteremergency.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202208977773:android:9e05121fea9b4257773064",
+        "android_client_info": {
+          "package_name": "com.atinity.public_emergency_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202208977773-9vbq2ubsodfapi9r3apfquthngsk5q71.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnEpwI1wvKfo2pyJJy2Pv-u-VDQGsEUYw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202208977773-9vbq2ubsodfapi9r3apfquthngsk5q71.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
