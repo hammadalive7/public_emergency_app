@@ -158,7 +158,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                                 content: Wrap(
                                   runAlignment: WrapAlignment.center,
                                   runSpacing: 10,
-                                  children: [
+                                  children: const [
                                     Text(
                                       "User Agreement",
                                       style: TextStyle(
@@ -171,13 +171,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                                           fontSize: 15, fontFamily: 'Roboto'),
                                     ),
                                     Text(
-                                      "What you agree if you contribute to the identification",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "We need to run this project to help us cope with a continuous flood of photos from field cameras at Currawinya National Park and on private land in Queensland. At this stage there is no AI that can categorise the photos, so we need human eyes.Not only will this enable us to be alerted to sightings of both bilbies, and feral pests, but it will also add to our knowledge of the species sharing the environment with the bilbies.The major goal for this project is for the analysed data to be available to our researcher for use, modification and redistribution in order to further scientific research. Therefore, if you contribute to the ID App, you grant us and our collaborators permission to use your contributions however we like to further this goal, trusting us to do the right thing with your identification choice.Similarly, by interacting with the app and participating in photo identification, you must promise to do your very best to attribute an identification to a photo. If you are wilfully disruptive and mis-identifying photos on a regular basis you will have your access removed.You must also agree not to copy, use or distribute any of the images that are presented to you outside of the App.",
+                                      "Acceptance of Terms: By downloading and using this app, you agree to all of the terms and conditions outlined in this agreement. If you do not agree to these terms, you should not use the app.\nPrivacy Policy: Our privacy policy outlines how we collect, use, and protect your personal information when you use our app. By using our app, you agree to our privacy policy.\nUser Conduct: You agree to use the app for lawful purposes only. You agree not to use the app to engage in any conduct that is illegal, harmful, or offensive.\nUser Registration: In order to use certain features of the app, you may need to register and provide certain information. You agree to provide accurate and complete information when registering.\nUser Content: You are solely responsible for any content you upload or transmit through the app. You agree not to upload or transmit any content that is illegal, harmful, or offensive.\nIntellectual Property: The app and all of its content, including but not limited to text, graphics, logos, and images, are the property of the app owners and are protected by copyright and other intellectual property laws.\nDisclaimer of Warranties: The app owners make no warranty that the app will be error-free or uninterrupted. The app owners also make no warranty as to the accuracy or completeness of any content on the app.",
                                       strutStyle: StrutStyle(
                                         fontFamily: 'Roboto',
                                         height: 1.5,
@@ -201,7 +195,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                                                   isChecked = value!;
                                                 });
                                               })),
-                                          Text(
+                                          const Text(
                                             'I agree with the Terms and Conditions',
                                             style: TextStyle(
                                                 fontFamily: 'Roboto',

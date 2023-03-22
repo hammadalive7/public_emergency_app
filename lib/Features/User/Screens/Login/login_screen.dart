@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:public_emergency_app/Features/User/Screens/Login/login_form_widget.dart';
 
 
@@ -27,7 +28,7 @@ class LoginScreen extends StatelessWidget  {
         ),
 
         bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(110.0),
+            preferredSize:  Size.fromHeight(Get.height * 0.1),
             child: Container(
               padding: const EdgeInsets.only(bottom: 15),
               child: Column(
@@ -36,7 +37,7 @@ class LoginScreen extends StatelessWidget  {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
 
-                      Image(image: AssetImage("assets/logos/emergencyAppLogo.png"), height: 100),
+                      Image(image: const AssetImage("assets/logos/emergencyAppLogo.png"), height: Get.height * 0.1),
                     ],
                   ),
 
@@ -44,7 +45,7 @@ class LoginScreen extends StatelessWidget  {
                     margin: const EdgeInsets.only(top: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children:  [
+                      children:  const [
                         Text(
                           "Login",
                           style: TextStyle(
@@ -68,7 +69,7 @@ class LoginScreen extends StatelessWidget  {
             children: const [
               // (,
               LoginForm(),
-              FooterWidget(Texts: "Don't Have Account ",Title: "Sign Up"),
+              FooterWidget(Texts: "Don't have an account ",Title: "Sign Up"),
             ],
           ),
         ),

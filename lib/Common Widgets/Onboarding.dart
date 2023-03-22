@@ -38,30 +38,31 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     required String subtitle,
   }) =>
       Container(
-        color: color,
+        color: Colors.grey[50],
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
             Image.asset(
               url,
               fit: BoxFit.cover,
               width: double.infinity,
             ),
-            SizedBox(height: Get.height * .02),
+            // SizedBox(height: Get.height * .0000001),
             Text(
               title,
               style: const TextStyle(
                 color: Colors.black,
-                fontSize: 32,
+                fontSize: 28,
                 fontWeight: FontWeight.bold,
               ),
             ),
 
             SizedBox(
-              height: Get.height*.03,
+              height: Get.height*.001,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: Get.width * .10),
+              padding: EdgeInsets.symmetric(horizontal: Get.width * .07),
               child: Text(
                 subtitle,
                 style: const TextStyle(
@@ -87,22 +88,22 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         children: <Widget>[
           buildPage(
               color: Colors.white,
-              url: "assets/logos/emergencyAppLogo.png",
-              title: 'Quality Service',
+              url: "assets/Ambulance.png",
+              title: 'Emergency Patrol',
               subtitle:
-              'Get quality and professional services right at your footstep'),
+              'Our app provides a platform for quick response services from police, ambulance, and firefighters.'),
           buildPage(
               color: Colors.white,
-              url: 'assets/logos/emergencyAppLogo.png',
-              title: 'Work Faster',
+              url: 'assets/Quick.png',
+              title: 'Easy and Fast Response',
               subtitle:
-              'Get more hands on board to help you do work faster and cleaner'),
+              'Our app allows you to quickly send out an emergency request with just a few taps, and our responders will be alerted to your location within seconds.'),
           buildPage(
               color: Colors.white,
-              url: 'assets/logos/emergencyAppLogo.png',
-              title: 'Get Employed',
+              url: 'assets/Choose.png',
+              title: 'Choose Your Responder',
               subtitle:
-              'Get discovered right from home and get paid for what you love doing '),
+              'As a responder, you can choose your area of expertise and set your availability status. This allows citizens to see which responders are available and respond to emergency requests accordingly.'),
         ],
       ),
       bottomSheet: lastPage
@@ -127,7 +128,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         },
         child: Padding(
           padding: EdgeInsets.only(
-              left: Get.height * .08, bottom: Get.height * .08),
+              left: Get.height * .08, bottom: Get.height * .02),
           child: Container(
               height: Get.height * .09,
               width: Get.width * .65,
@@ -191,7 +192,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ),
           Padding(
             padding: EdgeInsets.only(
-                right: Get.width * .03, bottom: Get.height * .02),
+                right: Get.width * .05, bottom: Get.height * .02),
             child: FloatingActionButton(
               onPressed: () {
                 controller.nextPage(
