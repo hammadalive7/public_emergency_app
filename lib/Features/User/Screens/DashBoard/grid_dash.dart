@@ -14,7 +14,7 @@ class GridDashboard extends StatelessWidget {
     title: "Fire Brigade",
     subtitle: "Emergency, Fire Brigade",
     event: "",
-    img: "assets/logos/fire-brigade.png",
+    img: "assets/logos/fire-truck.png",
   );
 
   Items item3 = Items(
@@ -27,7 +27,7 @@ class GridDashboard extends StatelessWidget {
     title: "Hospitals",
     subtitle: "Emergency, Hospitals",
     event: "",
-    img: "assets/logos/ambulance.png",
+    img: "assets/logos/hospital.png",
   );
 
   GridDashboard({super.key});
@@ -56,6 +56,9 @@ class GridDashboard extends StatelessWidget {
               } else if (data.title == "Fire Brigade") {
                 Get.to(() => const UserProfile());
               } else if (data.title == "Ambulance") {
+                Get.to(() => const UserProfile());
+              }
+              else if (data.title == "Hospitals") {
                 Get.to(() => const UserProfile());
               }
             },

@@ -74,6 +74,8 @@ flutter:
     - assets/Ambulance.png
     - assets/Quick.png
     - assets/Choose.png
+    - assets/logos/hospital.png
+    - assets/logos/fire-truck.png
 #     - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
