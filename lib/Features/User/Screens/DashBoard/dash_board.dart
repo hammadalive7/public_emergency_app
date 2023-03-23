@@ -23,61 +23,56 @@ class _DashBoardState extends State<DashBoard> {
       // ),
 
       appBar: AppBar(
-      backgroundColor: Colors.lightBlueAccent,
-      centerTitle: true,
-      automaticallyImplyLeading: false,
-
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(40),
+        backgroundColor: Colors.lightBlueAccent,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(40),
+          ),
         ),
-      ),
-
-      bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(110.0),
-          child: Container(
-            padding: const EdgeInsets.only(bottom: 15),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-
-                    Image(image: AssetImage("assets/logos/emergencyAppLogo.png"), height: 100),
-                  ],
-                ),
-
-                Container(
-                  margin: const EdgeInsets.only(top: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:  [
-                      Text(
-                        "DashBoard",
-                        style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white),
-                      ),
-
+        bottom: PreferredSize(
+            preferredSize: Size.fromHeight(Get.height * 0.1),
+            child: Container(
+              padding: const EdgeInsets.only(bottom: 15),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image(
+                          image: const AssetImage(
+                              "assets/logos/emergencyAppLogo.png"),
+                          height: Get.height * 0.1),
                     ],
                   ),
-                )
-              ],
-            ),
-          )),
-    ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          "Dashboard",
+                          style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )),
+      ),
 
       body: Container(
-        margin: const EdgeInsets.only(top: 50),
+        margin:  EdgeInsets.only(top: Get.height * 0.17),
         child: Padding(
-
           padding: const EdgeInsets.all(18.0),
           child: GridDashboard(),
         ),
       ),
-
     );
-
   }
 }

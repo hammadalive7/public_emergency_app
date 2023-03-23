@@ -4,7 +4,6 @@ import 'package:public_emergency_app/Features/User/Screens/DashBoard/dash_board.
 
 import '../Profile/user_profile.dart';
 
-
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
 
@@ -13,45 +12,40 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
-  int currentindex = 1;
-  final screens = [
+  int currentIndex = 1;
+  final screens = const [
     UserProfile(),
     DashBoard(),
     DashBoard(),
-    // ProfileScreen(),
-    // CategoriesScreen(),
-    // ContactForm(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
           index: 1,
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: Colors.white,
           color: Colors.lightBlueAccent,
-          animationDuration: Duration(milliseconds: 300),
+          animationDuration: const Duration(milliseconds: 300),
           height: 55,
-          onTap: (index) => setState(() => currentindex = index),
-
-          items: [
+          onTap: (index) => setState(() => currentIndex = index),
+          items: const [
             Icon(
               Icons.person,
               size: 24,
               color: Colors.white,
             ),
             Icon(
-              Icons.app_registration_rounded,
+              Icons.emergency,
               size: 24,
               color: Colors.white,
             ),
-
             Icon(
               Icons.message,
               size: 24,
               color: Colors.white,
             )
           ]),
-      body: screens[currentindex],
+      body: screens[currentIndex],
     );
   }
 }
