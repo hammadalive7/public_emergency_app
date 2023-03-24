@@ -42,7 +42,6 @@ dependencies:
   smooth_page_indicator: ^1.0.1
   google_fonts: ^4.0.3
   curved_navigation_bar: ^1.0.3
-  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:

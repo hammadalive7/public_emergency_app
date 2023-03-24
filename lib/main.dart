@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'Common Widgets/Onboarding.dart';
+import 'Features/User/Screens/SignUp/verify_email_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -18,13 +20,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var user=FirebaseAuth.instance.currentUser;
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const OnBoardingScreen(),
+      home: user==null?const OnBoardingScreen():const VerifyEmailPage(),
+
     );
   }
 }
