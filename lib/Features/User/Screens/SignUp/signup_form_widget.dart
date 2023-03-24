@@ -15,7 +15,8 @@ class SignUpFormWidget extends StatefulWidget {
 bool isChecked = false;
 bool newsletterSubscription = false;
 bool letterChecked = false;
-
+enum UserType { User, Police, FireFighter, Ambulance }
+var userType = UserType.User;
 class _SignUpFormWidgetState extends State<SignUpFormWidget> {
 
   final controller = Get.put(SignUpController());
@@ -55,7 +56,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                 return null;
               },
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.person_outline_rounded),
+                prefixIcon: const Icon(Icons.person_outline_rounded),
                 labelText: "Full Name",
                 hintText: "Full Name",
                 border:
@@ -115,14 +116,47 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                 return null;
               },
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.fingerprint),
+                prefixIcon: const Icon(Icons.fingerprint),
                 labelText: "Password",
                 hintText: "Password",
                 border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
               ),
             ),
-            const SizedBox(height: 30 - 10),
+            const SizedBox(height: 10),
+            Column(
+              children: [
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+
+                    Radio<UserType>(value: UserType.User, groupValue: userType, onChanged: (UserType? value) {
+                      setState(() { userType = value!; });
+                    },),
+                    const Text('User'),
+                    Radio<UserType>(value: UserType.Police, groupValue: userType, onChanged: (UserType? value) {
+                      setState(() { userType = value!; });
+                    },),
+                    const Text('Police'),
+                  ],
+                ),
+               Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                 children: [
+                   Radio<UserType>(value: UserType.FireFighter, groupValue: userType, onChanged: (UserType? value) {
+                     setState(() { userType = value!; });
+                   },),
+                   const Text('Fire Fighter'),
+                   Radio<UserType>(value: UserType.Ambulance, groupValue: userType, onChanged: (UserType? value) {
+                     setState(() { userType = value!; });
+                   },),
+                   const Text('Ambulance'),
+                 ],
+               )
+              ],
+            ),
+
             SizedBox(
               width: double.infinity,
               height: 50,
@@ -144,14 +178,14 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                           builder: (context, setState) {
                             return AlertDialog(
                                 title:
-                                Center(child: Text("Terms & Conditions")),
+                                const Center(child: Text("Terms & Conditions")),
                                 insetPadding:
-                                EdgeInsets.symmetric(horizontal: 20),
-                                titleTextStyle: TextStyle(
+                                const EdgeInsets.symmetric(horizontal: 20),
+                                titleTextStyle: const TextStyle(
                                     color: Colors.lightBlueAccent,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold),
-                                shape: RoundedRectangleBorder(
+                                shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(15.0))),
                                 scrollable: true,
@@ -218,7 +252,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                                                     snackPosition: SnackPosition.BOTTOM,
                                                     backgroundColor: Colors.red,
                                                     colorText: Colors.white,
-                                                    duration: Duration(seconds: 3));
+                                                    duration: const Duration(seconds: 3));
                                             }
                                                 else{
                                                   Navigator.of(context)
@@ -229,6 +263,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                                                       controller.email.text.trim(),
                                                       controller.password.text.trim(),
                                                       controller.phoneNo.text.trim(),
+                                                      userType.toString().split('.').last,
                                                     );
 
                                                   }
@@ -239,7 +274,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                                             }),
 
 
-                                            child: Text(
+                                            child: const Text(
                                               "Continue",
                                               style: TextStyle(
                                                   color: Colors.white),
@@ -254,7 +289,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                       }));
 
                 },
-                child: Text("SignUp".toUpperCase()),
+                child: Text("Sign Up".toUpperCase()),
               ),
             ),
 

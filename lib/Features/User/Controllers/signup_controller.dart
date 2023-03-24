@@ -24,7 +24,7 @@ class SignUpController extends GetxController {
 
   // final userRepo = Get.put(UserRepository());
 
-  void signUp(String username, String email, String password, String Phone)async{
+  void signUp(String username, String email, String password, String Phone, String Usertype)async{
 
     FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -43,18 +43,33 @@ class SignUpController extends GetxController {
           // 'password': password,
           'UserName': username,
           'Phone' : Phone,
-
+          'UserType': Usertype,
         });
 
 
           Get.offAll(() => const VerifyEmailPage());
-          Get.snackbar("Success", "SignUp Successfully:)");
+          Get.snackbar("Success", "Sign Up Successfully");
 
       }).onError((error, stackTrace){
-    Get.snackbar("Error", error.toString() );
+        if(error.toString().contains("email-already-in-use")){
+          Get.snackbar("Error", "Email Already In Use");
+        }
+        else if(error.toString().contains("weak-password")){
+          Get.snackbar("Error", "Password Should Be At Least 6 Characters");
+        }
+        else if(error.toString().contains("invalid-email")){
+          Get.snackbar("Error", "Invalid Email");
+        }
+        else if(error.toString().contains("network-request-failed")){
+          Get.snackbar("Error", "Check Your Internet Connection");
+        }
+        else{
+          Get.snackbar("Error", error.toString());
+        }
       });
     } catch (error) {
-      Get.snackbar("Error", error.toString() );
+      Get.snackbar("Error", error.toString());
+      debugPrint(error.toString());
     }
   }
   }

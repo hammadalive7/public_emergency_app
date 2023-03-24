@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter/material.dart';
 
-import '../../Controllers/login_controller.dart';
-import '../Forget Password/forget_password.dart';
+import '../User/Controllers/login_controller.dart';
+import '../User/Screens/Forget Password/forget_password.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -80,7 +79,7 @@ class _LoginFormState extends State<LoginForm> {
 
 
 
-                prefixIcon: Icon(Icons.fingerprint),
+                prefixIcon: const Icon(Icons.fingerprint),
                 labelText: "Password",
                 hintText: "Password",
                 border:
@@ -95,7 +94,7 @@ class _LoginFormState extends State<LoginForm> {
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
-                              side: BorderSide(color: Colors.transparent)))),
+                              side: const BorderSide(color: Colors.transparent)))),
                   onPressed: () {
                     Get.to(() => const ForgetPassword());
                   },
@@ -124,7 +123,7 @@ class _LoginFormState extends State<LoginForm> {
 
 
                 },
-                child: Text("Login".toUpperCase()),
+                child: Text("Log in".toUpperCase()),
               ),
             )
           ],

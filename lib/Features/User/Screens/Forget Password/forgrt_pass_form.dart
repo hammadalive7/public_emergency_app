@@ -2,7 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../login/login_screen.dart';
+import 'package:public_emergency_app/Features/Login/login_screen.dart';
 
 class ForgetFormWidget extends StatefulWidget {
   const ForgetFormWidget({Key? key}) : super(key: key);

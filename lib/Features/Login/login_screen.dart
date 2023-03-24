@@ -1,63 +1,59 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:public_emergency_app/Features/User/Screens/DashBoard/grid_dash.dart';
 
-import '../../Controllers/session_controller.dart';
-import '../Login/login_screen.dart';
 
-class DashBoard extends StatefulWidget {
-  const DashBoard({Key? key}) : super(key: key);
+import '../../../../Common Widgets/form_footer.dart';
+import 'login_form_widget.dart';
 
-  @override
-  State<DashBoard> createState() => _DashBoardState();
-}
 
-class _DashBoardState extends State<DashBoard> {
-  FirebaseAuth auth = FirebaseAuth.instance;
+class LoginScreen extends StatelessWidget  {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    //Get the size in LoginHeaderWidget()
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('DashBoard'),
-      // ),
-
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
         centerTitle: true,
         automaticallyImplyLeading: false,
+
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(40),
           ),
         ),
+
         bottom: PreferredSize(
-            preferredSize: Size.fromHeight(Get.height * 0.1),
+            preferredSize:  Size.fromHeight(Get.height * 0.1),
             child: Container(
-              padding: const EdgeInsets.only(bottom: 15),
+              padding: const EdgeInsets.only(bottom: 10),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image(
-                          image: const AssetImage(
-                              "assets/logos/emergencyAppLogo.png"),
-                          height: Get.height * 0.1),
+
+                      Image(image: const AssetImage("assets/logos/emergencyAppLogo.png"), height: Get.height * 0.1),
                     ],
                   ),
+
                   Container(
                     margin: const EdgeInsets.only(top: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children:  const [
                         Text(
-                          "Dashboard",
+                          "Login",
                           style: TextStyle(
                               fontSize: 28,
                               fontWeight: FontWeight.w700,
                               color: Colors.white),
                         ),
+
                       ],
                     ),
                   )
@@ -65,12 +61,17 @@ class _DashBoardState extends State<DashBoard> {
               ),
             )),
       ),
-
-      body: Container(
-        margin:  EdgeInsets.only(top: Get.height * 0.17),
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: GridDashboard(),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              // (,
+              LoginForm(),
+              FooterWidget(Texts: "Don't have an account ",Title: "Sign Up"),
+            ],
+          ),
         ),
       ),
     );

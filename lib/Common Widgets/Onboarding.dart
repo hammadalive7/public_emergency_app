@@ -5,9 +5,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:public_emergency_app/Features/User/Screens/Login/login_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../Features/Login/login_screen.dart';
 import '../Features/User/Controllers/session_controller.dart';
 import '../Features/User/Screens/SignUp/verify_email_page.dart';
 

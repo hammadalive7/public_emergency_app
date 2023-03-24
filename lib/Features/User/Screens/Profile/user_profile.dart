@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:public_emergency_app/Features/User/Controllers/session_controller.dart';
 
-import '../Login/login_screen.dart';
+import '../../../Login/login_screen.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({Key? key}) : super(key: key);
