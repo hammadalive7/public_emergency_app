@@ -61,8 +61,7 @@ class GridDashboard extends StatelessWidget {
                 Get.to(() => const FireFighterOptions());
               } else if (data.title == "Ambulance") {
                 Get.to(() => const AmbulanceOptions());
-              }
-              else if (data.title == "Hospitals") {
+              } else if (data.title == "Hospitals") {
                 Get.to(() => const HospitalOptions());
               }
             },

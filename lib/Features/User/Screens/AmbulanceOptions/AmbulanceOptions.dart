@@ -62,7 +62,8 @@ class AmbulanceOptions extends StatelessWidget {
                 tileColor: Colors.blue.shade300,
                 leading: const Icon(Icons.map),
                 title: const Text('Ambulance Map Display'),
-                subtitle: const Text('Find the nearest fire station on the map'),
+                subtitle:
+                    const Text('Find the nearest fire station on the map'),
                 onTap: () {
                   // Add code here to display the nearest police station on the map
                 },
@@ -73,8 +74,9 @@ class AmbulanceOptions extends StatelessWidget {
                 tileColor: Colors.blue.shade600,
                 leading: const Icon(Icons.call),
                 title: const Text('Call'),
-                subtitle: const Text('Directly call the ambulance service helpline'),
-                   onTap:  () async {
+                subtitle:
+                    const Text('Directly call the ambulance service helpline'),
+                onTap: () async {
                   if (await Permission.phone.request().isGranted) {
                     debugPrint("In making phone call");
                     var url = Uri.parse("tel:1122");
@@ -91,7 +93,8 @@ class AmbulanceOptions extends StatelessWidget {
                 tileColor: const Color(0xfff85757),
                 leading: const Icon(Icons.message),
                 title: const Text('Send Distress Message'),
-                subtitle: const Text('Send a distress message to emergency contacts'),
+                subtitle:
+                    const Text('Send a distress message to emergency contacts'),
                 onTap: () {
                   // Add code here to send a distress message to emergency contacts
                 },

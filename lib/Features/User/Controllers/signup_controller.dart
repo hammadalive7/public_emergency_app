@@ -6,12 +6,9 @@ import 'package:public_emergency_app/Features/User/Controllers/session_controlle
 
 import '../Screens/SignUp/verify_email_page.dart';
 
-
 // SignUpController is used to store user data will he signup and alse create User Email And Password Authentication for login
 
 class SignUpController extends GetxController {
-
-
   static SignUpController get instance => Get.find();
 
   //TextField Controllers to get data from TextFields
@@ -24,46 +21,37 @@ class SignUpController extends GetxController {
 
   // final userRepo = Get.put(UserRepository());
 
-  void signUp(String username, String email, String password, String Phone, String Usertype)async{
-
+  void signUp(String username, String email, String password, String Phone,
+      String Usertype) async {
     FirebaseAuth auth = FirebaseAuth.instance;
 
-
     UserCredential? userCredential;
-    try{
-       userCredential = await auth.createUserWithEmailAndPassword(
-          email: email,
-          password: password
-      ).then((value){
-
+    try {
+      userCredential = await auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) {
         SessionController().userid = value.user!.uid.toString();
 
         ref.child(value.user!.uid.toString()).set({
           'email': value.user!.email.toString(),
           // 'password': password,
           'UserName': username,
-          'Phone' : Phone,
+          'Phone': Phone,
           'UserType': Usertype,
         });
 
-
-          Get.offAll(() => const VerifyEmailPage());
-          Get.snackbar("Success", "Sign Up Successfully");
-
-      }).onError((error, stackTrace){
-        if(error.toString().contains("email-already-in-use")){
+        Get.offAll(() => const VerifyEmailPage());
+        Get.snackbar("Success", "Sign Up Successfully");
+      }).onError((error, stackTrace) {
+        if (error.toString().contains("email-already-in-use")) {
           Get.snackbar("Error", "Email Already In Use");
-        }
-        else if(error.toString().contains("weak-password")){
+        } else if (error.toString().contains("weak-password")) {
           Get.snackbar("Error", "Password Should Be At Least 6 Characters");
-        }
-        else if(error.toString().contains("invalid-email")){
+        } else if (error.toString().contains("invalid-email")) {
           Get.snackbar("Error", "Invalid Email");
-        }
-        else if(error.toString().contains("network-request-failed")){
+        } else if (error.toString().contains("network-request-failed")) {
           Get.snackbar("Error", "Check Your Internet Connection");
-        }
-        else{
+        } else {
           Get.snackbar("Error", error.toString());
         }
       });
@@ -72,5 +60,4 @@ class SignUpController extends GetxController {
       debugPrint(error.toString());
     }
   }
-  }
-  
+}

@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 
-class AppUser{
+class AppUser {
   late String name;
   late String email;
   late String phone;

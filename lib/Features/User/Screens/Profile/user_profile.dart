@@ -22,16 +22,17 @@ class _UserProfileState extends State<UserProfile> {
       body: Center(
         child: Column(
           children: [
-            ElevatedButton(onPressed: (){
-              // final user = auth.currentUser;
-              FirebaseAuth auth = FirebaseAuth.instance;
+            ElevatedButton(
+                onPressed: () {
+                  // final user = auth.currentUser;
+                  FirebaseAuth auth = FirebaseAuth.instance;
 
-              auth.signOut().then((value){
-                SessionController().userid = '';
-                Get.offAll(() => const LoginScreen());
-              });
-
-            }, child: Text("Logout")),
+                  auth.signOut().then((value) {
+                    SessionController().userid = '';
+                    Get.offAll(() => const LoginScreen());
+                  });
+                },
+                child:const Text("Logout")),
             const SizedBox(
               height: 100,
             ),

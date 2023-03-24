@@ -58,38 +58,36 @@ class _NavBarState extends State<NavBar> {
         debugPrint("Error");
       }
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
-
-    if(userType == "Police"){
+    if (userType == "Police") {
       screens = const [
         UserProfile(),
         PoliceDashboard(),
         UserDashboard(),
       ];
-    }else if(userType == "Ambulance"){
+    } else if (userType == "Ambulance") {
       screens = const [
         UserProfile(),
         AmbulanceDashboard(),
         UserDashboard(),
       ];
-    }else if(userType == "Fire"){
+    } else if (userType == "Fire") {
       screens = const [
         UserProfile(),
         FirefighterDashboard(),
         UserDashboard(),
       ];
-    }else if(userType == "User"){
+    } else if (userType == "User") {
       screens = const [
         UserProfile(),
         UserDashboard(),
         UserDashboard(),
       ];
     }
-     return Scaffold(
+    return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
           index: 1,
           backgroundColor: Colors.white,

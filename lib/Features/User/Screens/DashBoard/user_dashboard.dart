@@ -67,7 +67,7 @@ class _UserDashboardState extends State<UserDashboard> {
       ),
 
       body: Container(
-        margin:  EdgeInsets.only(top: Get.height * 0.17),
+        margin: EdgeInsets.only(top: Get.height * 0.17),
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: GridDashboard(),

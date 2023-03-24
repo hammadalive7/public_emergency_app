@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    var user=FirebaseAuth.instance.currentUser;
+    var user = FirebaseAuth.instance.currentUser;
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -29,8 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: user==null?const OnBoardingScreen():const VerifyEmailPage(),
-
+      home: user == null ? const OnBoardingScreen() : const VerifyEmailPage(),
     );
   }
 }
