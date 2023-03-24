@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+// import 'package:permission_handler/permission_handler.dart';
 import 'Common Widgets/Onboarding.dart';
 import 'Features/User/Screens/SignUp/verify_email_page.dart';
 import 'firebase_options.dart';

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HospitalOptions extends StatelessWidget {
   const HospitalOptions({Key? key}) : super(key: key);
@@ -73,7 +75,16 @@ class HospitalOptions extends StatelessWidget {
                 leading: const Icon(Icons.call),
                 title: const Text('Call'),
                 subtitle: const Text('Directly call the hospital helpline'),
-                // onTap: () => ('tel:100'),
+                onTap: () async {
+                  if (await Permission.phone.request().isGranted) {
+                    debugPrint("In making phone call");
+                    var url = Uri.parse("tel:15");
+                    await launchUrl(url);
+                    debugPrint("Location Permission is granted");
+                  } else {
+                    debugPrint("Location Permission is denied.");
+                  }
+                },
               ),
             ),
             Card(
@@ -81,7 +92,8 @@ class HospitalOptions extends StatelessWidget {
                 tileColor: const Color(0xfff85757),
                 leading: const Icon(Icons.message),
                 title: const Text('Send Distress Message'),
-                subtitle: const Text('Send a distress message to emergency contacts'),
+                subtitle:
+                    const Text('Send a distress message to emergency contacts'),
                 onTap: () {
                   // Add code here to send a distress message to emergency contacts
                 },

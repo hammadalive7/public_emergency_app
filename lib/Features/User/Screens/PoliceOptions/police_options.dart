@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class PoliceOptions extends StatelessWidget {
+class PoliceOptions extends StatefulWidget {
   const PoliceOptions({Key? key}) : super(key: key);
 
+  @override
+  State<PoliceOptions> createState() => _PoliceOptionsState();
+}
+
+class _PoliceOptionsState extends State<PoliceOptions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,10 +64,11 @@ class PoliceOptions extends StatelessWidget {
           children: [
             Card(
               child: ListTile(
-                 tileColor: Colors.blue.shade300,
+                tileColor: Colors.blue.shade300,
                 leading: const Icon(Icons.map),
                 title: const Text('Police Station Map Display'),
-                subtitle: const Text('Find the nearest police station on the map'),
+                subtitle:
+                    const Text('Find the nearest police station on the map'),
                 // trailing: Icon(Icons.police),
                 onTap: () {
                   // Add code here to display the nearest police station on the map
@@ -72,8 +80,18 @@ class PoliceOptions extends StatelessWidget {
                 tileColor: Colors.blue.shade600,
                 leading: const Icon(Icons.call),
                 title: const Text('Call'),
-                subtitle: const Text('Directly call the police station helpline'),
-                // onTap: () => ('tel:100'),
+                subtitle:
+                    const Text('Directly call the police station helpline'),
+                onTap: () async {
+                  if (await Permission.phone.request().isGranted) {
+                    debugPrint("In making phone call");
+                    var url = Uri.parse("tel:15");
+                    await launchUrl(url);
+                    debugPrint("Location Permission is granted");
+                  } else {
+                    debugPrint("Location Permission is denied.");
+                  }
+                },
               ),
             ),
             Card(
@@ -81,7 +99,8 @@ class PoliceOptions extends StatelessWidget {
                 tileColor: const Color(0xfff85757),
                 leading: const Icon(Icons.message),
                 title: const Text('Send Distress Message'),
-                subtitle: const Text('Send a distress message to emergency contacts'),
+                subtitle:
+                    const Text('Send a distress message to emergency contacts'),
                 onTap: () {
                   // Add code here to send a distress message to emergency contacts
                 },

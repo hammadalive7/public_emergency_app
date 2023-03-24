@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AmbulanceOptions extends StatelessWidget {
   const AmbulanceOptions({Key? key}) : super(key: key);
@@ -72,7 +74,16 @@ class AmbulanceOptions extends StatelessWidget {
                 leading: const Icon(Icons.call),
                 title: const Text('Call'),
                 subtitle: const Text('Directly call the ambulance service helpline'),
-                // onTap: () => ('tel:100'),
+                   onTap:  () async {
+                  if (await Permission.phone.request().isGranted) {
+                    debugPrint("In making phone call");
+                    var url = Uri.parse("tel:1122");
+                    await launchUrl(url);
+                    debugPrint("Location Permission is granted");
+                  } else {
+                    debugPrint("Location Permission is denied.");
+                  }
+                },
               ),
             ),
             Card(
