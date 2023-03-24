@@ -109,7 +109,7 @@ class _NavBarState extends State<NavBar> {
               color: Colors.white,
             ),
             Icon(
-              Icons.message,
+              Icons.video_call,
               size: 24,
               color: Colors.white,
             )

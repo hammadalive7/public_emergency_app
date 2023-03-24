@@ -1,11 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../Common Widgets/form_footer.dart';
-import 'forgrt_pass_form.dart';
+import 'forget_password_form.dart';
 
-
-class ForgetPassword extends StatelessWidget  {
+class ForgetPassword extends StatelessWidget {
   const ForgetPassword({Key? key}) : super(key: key);
 
   @override
@@ -17,13 +15,11 @@ class ForgetPassword extends StatelessWidget  {
         backgroundColor: Colors.lightBlueAccent,
         centerTitle: true,
         automaticallyImplyLeading: false,
-
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(40),
           ),
         ),
-
         bottom: PreferredSize(
             preferredSize: const Size.fromHeight(110.0),
             child: Container(
@@ -56,15 +52,17 @@ class ForgetPassword extends StatelessWidget  {
                       //   ),
                       // ),
 
-                      Image(image: AssetImage("assets/logos/emergencyAppLogo.png"), height: 100),
+                      Image(
+                          image:
+                              AssetImage("assets/logos/emergencyAppLogo.png"),
+                          height: 100),
                     ],
                   ),
-
                   Container(
                     margin: const EdgeInsets.only(top: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children:  [
+                      children: [
                         Text(
                           "Forget Password",
                           style: TextStyle(
@@ -72,7 +70,6 @@ class ForgetPassword extends StatelessWidget  {
                               fontWeight: FontWeight.w700,
                               color: Colors.white),
                         ),
-
                       ],
                     ),
                   )
@@ -86,9 +83,8 @@ class ForgetPassword extends StatelessWidget  {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
-
               ForgetFormWidget(),
-              FooterWidget(Texts: "Don't Have Account ",Title: "Sign Up"),
+              FooterWidget(Texts: "Don't Have Account ", Title: "Sign Up"),
             ],
           ),
         ),
