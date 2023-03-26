@@ -16,8 +16,9 @@ class messageController extends GetxController {
     String _result =
         await sendSMS(message: message, recipients: recipents, sendDirect: true)
             .catchError((onError) {
-      print( "ERROR IN SENDING FUNCTION!!!"+ onError.toString());
+      print("ERROR IN SENDING FUNCTION!!!" + onError.toString());
     });
+    Get.snackbar("SMS", _result);
     print(_result);
   }
 
@@ -50,22 +51,20 @@ class messageController extends GetxController {
   handleSmsPermission() async {
     final status = await Permission.sms.request();
     if (status.isGranted) {
-      print("SMS Permission Granted");
+      debugPrint("SMS Permission Granted");
       return true;
     } else {
-      print("SMS Permission Denied");
+      debugPrint("SMS Permission Denied");
       return false;
     }
   }
 
-
-
   Future<Position> _getCurrentPosition() async {
-    final hasSmsPermission=handleSmsPermission();
+    // final hasSmsPermission = handleSmsPermission();
 
     final hasPermission = await _handleLocationPermission();
 
-    if (!hasPermission)
+    if (!hasPermission) {
       return Position(
           latitude: 0,
           longitude: 0,
@@ -75,6 +74,7 @@ class messageController extends GetxController {
           heading: 0,
           speed: 0,
           speedAccuracy: 0);
+    }
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) {
       _currentPosition = position;
@@ -106,30 +106,30 @@ class messageController extends GetxController {
     });
   }
 
-  Future<void> sendLocationViaSMS() async {
+  Future<void> sendLocationViaSMS(String EmergencyType) async {
     await _getCurrentPosition().then((_currentAddress) {
       if (_currentAddress != null) {
         // Get.snackbar("Location", _currentAddress!);
-        final Uri smsLaunchUri = Uri(
-          scheme: 'sms',
-          path: '03177674726',
-          queryParameters: <String, String>{
-            'body': "HELP me! I am under the water \n http://www.google.com/maps/place/${_currentPosition!.latitude},${_currentPosition!.longitude}"
-          },
-        );
+        // final Uri smsLaunchUri = Uri(
+        //   scheme: 'sms',
+        //   path: '03177674726',
+        //   queryParameters: <String, String>{
+        //     'body': "HELP me! I am under the water \n http://www.google.com/maps/place/${_currentPosition!.latitude},${_currentPosition!.longitude}"
+        //   },
+        // );
         // launchUrl(smsLaunchUri);
-
-        Get.snackbar("Location",
-            "$_currentPosition.latitude, $_currentPosition.longitude ");
-        String message = "HELP me! I am under the water \n http://www.google.com/maps/place/${_currentPosition!.latitude},${_currentPosition!.longitude}}";
+        // Get.snackbar("Location",
+        //     "$_currentPosition.latitude, $_currentPosition.longitude ");
+        String message =
+            "HELP me! There is an $EmergencyType \n http://www.google.com/maps/place/${_currentPosition!.latitude},${_currentPosition!.longitude}}";
         List<String> recipents = ["03177674726", "03236572961"];
         // String message="I am in trouble";
         _sendSMS(message, recipents);
       } else {
-        Get.snackbar("Location", "Current Address not found");
+
       }
     });
 
-    Get.snackbar("Location", "Location not found");
+    // Get.snackbar("Location", "Location not found");
   }
 }

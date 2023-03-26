@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:public_emergency_app/Features/User/Controllers/message_sending.dart';
 import 'package:public_emergency_app/Features/User/Screens/DashBoard/grid_dash.dart';
 
 import '../../Controllers/session_controller.dart';
@@ -14,7 +15,16 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    messageController().handleSmsPermission();
+  }
+  final _messageController = Get.put(messageController());
   FirebaseAuth auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

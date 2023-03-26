@@ -3,11 +3,14 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../Controllers/message_sending.dart';
+
 class FireFighterOptions extends StatelessWidget {
   const FireFighterOptions({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final smsController = Get.put(messageController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
@@ -95,6 +98,7 @@ class FireFighterOptions extends StatelessWidget {
                 subtitle:
                     const Text('Send a distress message to emergency contacts'),
                 onTap: () {
+                  smsController.sendLocationViaSMS("Fire Emergency\nSend Help at");
                   // Add code here to send a distress message to emergency contacts
                 },
               ),

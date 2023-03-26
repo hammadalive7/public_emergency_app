@@ -87,10 +87,10 @@ class _LocationPageState extends State<LocationPage> {
               const SizedBox(height: 32),
               ElevatedButton(
                 onPressed: () {
-                  _messageController.sendLocationViaSMS();
-                  _getCurrentPosition();
+                  _messageController.sendLocationViaSMS("Medical Emergency");
+                  // _getCurrentPosition();
                 },
-                child: const Text("Get Current Location"),
+                child: const Text("Sent Distress Message With Location"),
               )
             ],
           ),

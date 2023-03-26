@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../Controllers/message_sending.dart';
+
 class PoliceOptions extends StatefulWidget {
   const PoliceOptions({Key? key}) : super(key: key);
 
@@ -11,6 +13,7 @@ class PoliceOptions extends StatefulWidget {
 }
 
 class _PoliceOptionsState extends State<PoliceOptions> {
+  final smsController = Get.put(messageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,6 +105,7 @@ class _PoliceOptionsState extends State<PoliceOptions> {
                 subtitle:
                     const Text('Send a distress message to emergency contacts'),
                 onTap: () {
+                  smsController.sendLocationViaSMS("Police Emergency\nSend Police at");
                   // Add code here to send a distress message to emergency contacts
                 },
               ),
