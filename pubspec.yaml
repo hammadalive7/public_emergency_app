@@ -48,6 +48,7 @@ dependencies:
   geolocator: ^9.0.2
   geocoding: ^2.1.0
   flutter_sms: ^2.3.3
+  shared_preferences: ^2.0.20
 
 dev_dependencies:
   flutter_test:
