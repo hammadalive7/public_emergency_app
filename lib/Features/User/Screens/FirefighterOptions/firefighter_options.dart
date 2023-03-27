@@ -84,6 +84,7 @@ class FireFighterOptions extends StatelessWidget {
                       debugPrint("In making phone call");
                       var url = Uri.parse("tel:16");
                       await launchUrl(url);
+
                       debugPrint("Location Permission is granted");
                     } else {
                       debugPrint("Location Permission is denied.");
