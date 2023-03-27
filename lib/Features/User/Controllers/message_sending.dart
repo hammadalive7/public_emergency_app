@@ -8,8 +8,11 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../Emergency Contacts/emergency_contacts_controller.dart';
+
 class messageController extends GetxController {
   static messageController get instance => Get.find();
+  final emergencyContactsController= Get.put(EmergencyContactsController());
   String? _currentAddress;
   Position? _currentPosition;
   void _sendSMS(String message, List<String> recipents) async {
@@ -107,7 +110,7 @@ class messageController extends GetxController {
   }
 
   Future<void> sendLocationViaSMS(String EmergencyType) async {
-    await _getCurrentPosition().then((_currentAddress) {
+    await _getCurrentPosition().then((_currentAddress) async {
       if (_currentAddress != null) {
         // Get.snackbar("Location", _currentAddress!);
         // final Uri smsLaunchUri = Uri(
@@ -122,9 +125,9 @@ class messageController extends GetxController {
         //     "$_currentPosition.latitude, $_currentPosition.longitude ");
         String message =
             "HELP me! There is an $EmergencyType \n http://www.google.com/maps/place/${_currentPosition!.latitude},${_currentPosition!.longitude}}";
-        List<String> recipents = ["03177674726", "03236572961"];
-        // String message="I am in trouble";
-        _sendSMS(message, recipents);
+        await emergencyContactsController.loadData().then((emergencyContacts) => _sendSMS(message, emergencyContacts));
+
+
       } else {
 
       }
