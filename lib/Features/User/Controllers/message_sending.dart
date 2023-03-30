@@ -1,34 +1,51 @@
 import 'dart:io';
 
+import 'package:background_sms/background_sms.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sms/flutter_sms.dart';
+// import 'package:flutter_sms/flutter_sms.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import '../../Emergency Contacts/emergency_contacts_controller.dart';
 
 class messageController extends GetxController {
   static messageController get instance => Get.find();
   final emergencyContactsController = Get.put(EmergencyContactsController());
+
+
+
   String? _currentAddress;
   Position? _currentPosition;
   void _sendSMS(String message, List<String> recipents) async {
-    String _result =
-        await sendSMS(message: message, recipients: recipents, sendDirect: true)
-            .catchError((onError) {
-      print("ERROR IN SENDING FUNCTION!!!" + onError.toString());
-    });
-    Get.snackbar("SMS", _result);
-    print(_result);
+
+    for (var i = 0; i < recipents.length; i++) {
+      String _result = await BackgroundSms.sendMessage(
+        //add all phone numbers in phone number list
+          phoneNumber: recipents[i].toString(),
+          message: message
+      ).toString();
+      Get.snackbar("SMS", _result);
+    }
+
+    print(recipents);
+
+    //     await sendSMS(message: message, recipients: recipents, sendDirect: true)
+    //         .catchError((onError) {
+    //   print("ERROR IN SENDING FUNCTION!!!" + onError.toString());
+    // });
+    // print(_result);
   }
 
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
-
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String contact1 = prefs.getString('contact1') ?? '';
+    String contact2 = prefs.getString('contact2') ?? '';
+    String contact3 = prefs.getString('contact3') ?? '';
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       Get.snackbar("Disabled",

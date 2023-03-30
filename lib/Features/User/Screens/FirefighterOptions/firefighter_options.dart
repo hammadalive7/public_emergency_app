@@ -100,15 +100,15 @@ class FireFighterOptions extends StatelessWidget {
                 subtitle:
                     const Text('Send a distress message to emergency contacts'),
                 onTap: () async {
-                   await BackgroundSms.sendMessage(
-                      phoneNumber: "03325106960", message: "Testing SMS Service");
+                  await BackgroundSms.sendMessage(
+                      phoneNumber: "03325106960",
+                      message: "Testing SMS Service");
                   // if (result == SmsStatus.sent) {
                   //   print("Sent");
                   // } else {
                   //   print("Failed");
                   // }
                   // smsController.sendLocationViaSMS("Fire Emergency\nSend Help at");
-                  // Add code here to send a distress message to emergency contacts
                 },
               ),
             ),
@@ -118,5 +118,5 @@ class FireFighterOptions extends StatelessWidget {
     );
   }
 
-  // Function for send SMS
+// Function for send SMS
 }
