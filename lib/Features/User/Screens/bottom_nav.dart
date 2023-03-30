@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:public_emergency_app/Features/FireFighter/firefighter_dashboard.dart';
 import 'package:public_emergency_app/Features/User/Screens/DashBoard/user_dashboard.dart';
+import 'package:public_emergency_app/Features/User/Screens/LiveStreaming/live_streaming.dart';
 import 'package:public_emergency_app/Features/User/Screens/location_getter_sender.dart';
 
 import '../../../User.dart';
@@ -85,7 +86,7 @@ class _NavBarState extends State<NavBar> {
       screens = const [
         UserProfile(),
         UserDashboard(),
-        LocationPage(),
+        LiveStreamUser(),
       ];
     }
     return Scaffold(

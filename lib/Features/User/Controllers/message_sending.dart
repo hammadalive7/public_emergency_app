@@ -12,7 +12,7 @@ import '../../Emergency Contacts/emergency_contacts_controller.dart';
 
 class messageController extends GetxController {
   static messageController get instance => Get.find();
-  final emergencyContactsController= Get.put(EmergencyContactsController());
+  final emergencyContactsController = Get.put(EmergencyContactsController());
   String? _currentAddress;
   Position? _currentPosition;
   void _sendSMS(String message, List<String> recipents) async {
@@ -125,12 +125,10 @@ class messageController extends GetxController {
         //     "$_currentPosition.latitude, $_currentPosition.longitude ");
         String message =
             "HELP me! There is an $EmergencyType \n http://www.google.com/maps/place/${_currentPosition!.latitude},${_currentPosition!.longitude}}";
-        await emergencyContactsController.loadData().then((emergencyContacts) => _sendSMS(message, emergencyContacts));
-
-
-      } else {
-
-      }
+        await emergencyContactsController
+            .loadData()
+            .then((emergencyContacts) => _sendSMS(message, emergencyContacts));
+      } else {}
     });
 
     // Get.snackbar("Location", "Location not found");
