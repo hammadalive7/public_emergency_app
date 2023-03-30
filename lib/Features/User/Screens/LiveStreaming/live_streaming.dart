@@ -19,7 +19,17 @@ final idController = TextEditingController();
 final sessionController = Get.put(SessionController());
 final smsController = Get.put(messageController());
 
+
 class _LiveStreamUserState extends State<LiveStreamUser> {
+
+  @override
+  void initState() {
+    super.initState();
+    smsController.handleLocationPermission();
+
+    // smsController.sendLocationViaSMS("SOS BUTTON PRESSED");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

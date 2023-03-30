@@ -39,13 +39,9 @@ class messageController extends GetxController {
     // print(_result);
   }
 
-  Future<bool> _handleLocationPermission() async {
+  Future<bool> handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String contact1 = prefs.getString('contact1') ?? '';
-    String contact2 = prefs.getString('contact2') ?? '';
-    String contact3 = prefs.getString('contact3') ?? '';
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       Get.snackbar("Disabled",
@@ -82,7 +78,7 @@ class messageController extends GetxController {
   Future<Position> _getCurrentPosition() async {
     // final hasSmsPermission = handleSmsPermission();
 
-    final hasPermission = await _handleLocationPermission();
+    final hasPermission = await handleLocationPermission();
 
     if (!hasPermission) {
       return Position(
