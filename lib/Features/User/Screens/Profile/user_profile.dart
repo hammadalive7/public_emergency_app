@@ -78,6 +78,7 @@ class _UserProfileState extends State<UserProfile> {
                     // foreground
                   ),
                   onPressed: () {
+
                       Get.to(() => ContactListScreen());
                   },
                   child:const Text("Emergency Contacts")),
