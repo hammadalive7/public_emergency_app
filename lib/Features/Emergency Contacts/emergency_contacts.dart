@@ -3,16 +3,20 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ContactListScreen extends StatefulWidget {
+
+  const ContactListScreen({Key? key}) : super(key: key);
+
+
   @override
   _ContactListScreenState createState() => _ContactListScreenState();
 }
 
 class _ContactListScreenState extends State<ContactListScreen> {
-  late String _contact1;
-  late String _contact2;
-  late String _contact3;
-  late String _contact4;
-  late String _contact5;
+  late String _contact1 = '';
+  late String _contact2 = '';
+  late String _contact3 = '';
+  late String _contact4 = '';
+  late String _contact5 = '';
 
   @override
   void initState() {

@@ -1,3 +1,4 @@
+import 'package:background_sms/background_sms.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -98,8 +99,15 @@ class FireFighterOptions extends StatelessWidget {
                 title: const Text('Send Distress Message'),
                 subtitle:
                     const Text('Send a distress message to emergency contacts'),
-                onTap: () {
-                  smsController.sendLocationViaSMS("Fire Emergency\nSend Help at");
+                onTap: () async {
+                   await BackgroundSms.sendMessage(
+                      phoneNumber: "03325106960", message: "Testing SMS Service");
+                  // if (result == SmsStatus.sent) {
+                  //   print("Sent");
+                  // } else {
+                  //   print("Failed");
+                  // }
+                  // smsController.sendLocationViaSMS("Fire Emergency\nSend Help at");
                   // Add code here to send a distress message to emergency contacts
                 },
               ),
@@ -109,4 +117,6 @@ class FireFighterOptions extends StatelessWidget {
       ),
     );
   }
+
+  // Function for send SMS
 }

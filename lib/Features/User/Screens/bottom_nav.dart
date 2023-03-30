@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:public_emergency_app/Features/FireFighter/firefighter_dashboard.dart';
 import 'package:public_emergency_app/Features/User/Screens/DashBoard/user_dashboard.dart';
 import 'package:public_emergency_app/Features/User/Screens/LiveStreaming/live_streaming.dart';
+import 'package:public_emergency_app/Features/User/Screens/Profile/profile_screen.dart';
 import 'package:public_emergency_app/Features/User/Screens/location_getter_sender.dart';
 
 import '../../../User.dart';
@@ -23,7 +24,7 @@ class _NavBarState extends State<NavBar> {
   int currentIndex = 1;
   String userType = "";
   var screens = const [
-    UserProfile(),
+    ProfileScreen(),
     UserDashboard(),
     LocationPage(),
   ];
@@ -66,25 +67,25 @@ class _NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     if (userType == "Police") {
       screens = const [
-        UserProfile(),
+        ProfileScreen(),
         PoliceDashboard(),
         UserDashboard(),
       ];
     } else if (userType == "Ambulance") {
       screens = const [
-        UserProfile(),
+        ProfileScreen(),
         AmbulanceDashboard(),
         UserDashboard(),
       ];
     } else if (userType == "Fire") {
       screens = const [
-        UserProfile(),
+        ProfileScreen(),
         FirefighterDashboard(),
         UserDashboard(),
       ];
     } else if (userType == "User") {
       screens = const [
-        UserProfile(),
+        ProfileScreen(),
         UserDashboard(),
         LiveStreamUser(),
       ];

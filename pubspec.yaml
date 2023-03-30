@@ -50,6 +50,8 @@ dependencies:
   flutter_sms: ^2.3.3
   shared_preferences: ^2.0.20
   zego_uikit_prebuilt_live_streaming: ^2.3.6
+  background_sms: ^0.0.4
+
 
 dev_dependencies:
   flutter_test:

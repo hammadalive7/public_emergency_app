@@ -12,13 +12,40 @@ class add_contact extends StatefulWidget {
 }
 
 class _add_contactState extends State<add_contact> {
+
+  @override
+  void initState() {
+    super.initState();
+    contactController.loadData();
+    _loadContacts();
+  }
+
+  Future<void> _loadContacts() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _contact1 = prefs.getString('contact1')!;
+      _contact2 = prefs.getString('contact2')!;
+      _contact3 = prefs.getString('contact3')!;
+      _contact4 = prefs.getString('contact4')!;
+      _contact5 = prefs.getString('contact5')!;
+    });
+  }
+
+  //Emergency Contacts
+  static String _contact1 = '';
+  static   String _contact2 = '';
+  static   String _contact3 = '';
+  static   String _contact4 = '';
+  static   String _contact5 = '';
+
+  //Controllers
   final contactController = Get.put(EmergencyContactsController());
   var _formKey = GlobalKey<FormState>();
-  var contact1controller = TextEditingController();
-  var contact2controller = TextEditingController();
-  var contact3controller = TextEditingController();
-  var contact4controller = TextEditingController();
-  var contact5controller = TextEditingController();
+  var contact1controller = TextEditingController(text: Text(_contact1).data.toString());
+  var contact2controller = TextEditingController(text: Text(_contact2).data.toString());
+  var contact3controller = TextEditingController(text: Text(_contact3).data.toString());
+  var contact4controller = TextEditingController(text: Text(_contact4).data.toString());
+  var contact5controller = TextEditingController(text: Text(_contact5).data.toString());
 
   static const String _key1 = 'contact1';
   static const String _key2 = 'contact2';
@@ -26,11 +53,6 @@ class _add_contactState extends State<add_contact> {
   static const String _key4 = 'contact4';
   static const String _key5 = 'contact5';
 
-  @override
-  void initState() {
-    super.initState();
-    contactController.loadData();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +67,38 @@ class _add_contactState extends State<add_contact> {
           ),
         ),
         bottom: PreferredSize(
-            preferredSize: Size.fromHeight(Get.height * 0.1),
+            preferredSize: Size.fromHeight(100),
             child: Container(
               padding: const EdgeInsets.only(bottom: 15),
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      Center(
+                        child: SizedBox.fromSize(
+                          size: Size(56, 56),
+                          child: ClipOval(
+                            child: Material(
+                              color: Colors.lightBlueAccent,
+                              child: InkWell(
+                                splashColor: Colors.white,
+                                onTap: () {  Get.back();
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(Icons.arrow_back, color: Colors.white, size: 30,),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: Get.width * 0.3,
+                      ) ,
                       Image(
                           image: const AssetImage(
                               "assets/logos/emergencyAppLogo.png"),
@@ -196,9 +242,9 @@ class _add_contactState extends State<add_contact> {
                         var contact4 = contact4controller.text.toString();
                         var contact5 = contact5controller.text.toString();
 
-                        contactController.setData(
-                            contact1, contact2, contact3, contact4, contact5);
+                        contactController.setData(contact1, contact2, contact3, contact4, contact5);
                         contactController.loadData();
+
                         //toast using Getx
                         Get.snackbar(
                           'Saved', 'Contact Saved Successfully',
