@@ -49,6 +49,7 @@ dependencies:
   geocoding: ^2.1.0
   flutter_sms: ^2.3.3
   shared_preferences: ^2.0.20
+  zego_uikit_prebuilt_live_streaming: ^2.3.6
 
 dev_dependencies:
   flutter_test:
