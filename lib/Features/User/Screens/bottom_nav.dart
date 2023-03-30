@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:public_emergency_app/Features/FireFighter/firefighter_dashboard.dart';
+import 'package:public_emergency_app/Features/Response%20Screen/emergencies_screen.dart';
 import 'package:public_emergency_app/Features/User/Screens/DashBoard/user_dashboard.dart';
 import 'package:public_emergency_app/Features/User/Screens/LiveStreaming/live_streaming.dart';
 import 'package:public_emergency_app/Features/User/Screens/location_getter_sender.dart';
@@ -18,6 +19,7 @@ class NavBar extends StatefulWidget {
   @override
   State<NavBar> createState() => _NavBarState();
 }
+
 
 class _NavBarState extends State<NavBar> {
   int currentIndex = 1;
@@ -49,12 +51,33 @@ class _NavBarState extends State<NavBar> {
     super.initState();
     getUserType().then((value) {
       if (userType == "Police") {
+        screens = const [
+          UserProfile(),
+          UserDashboard(),
+          EmergenciesScreen(),
+        ];
+
         debugPrint("Police");
       } else if (userType == "Ambulance") {
+        screens = const [
+          UserProfile(),
+          UserDashboard(),
+          EmergenciesScreen(),
+        ];
         debugPrint("Ambulance");
       } else if (userType == "Fire") {
+        screens = const [
+          UserProfile(),
+          UserDashboard(),
+          EmergenciesScreen(),
+        ];
         debugPrint("Fire");
       } else if (userType == "User") {
+        screens = const [
+          UserProfile(),
+          UserDashboard(),
+          EmergenciesScreen(),
+        ];
         debugPrint("User");
       } else {
         debugPrint("Error");
@@ -69,7 +92,7 @@ class _NavBarState extends State<NavBar> {
        screens = const [
          UserProfile(),
          PoliceDashboard(),
-         UserDashboard(),
+         EmergenciesScreen(),
        ];
      });
     } else if (userType == "Ambulance") {
@@ -77,7 +100,7 @@ class _NavBarState extends State<NavBar> {
        screens = const [
          UserProfile(),
          AmbulanceDashboard(),
-         UserDashboard(),
+         EmergenciesScreen(),
        ];
      });
     } else if (userType == "Fire") {
@@ -85,7 +108,7 @@ class _NavBarState extends State<NavBar> {
         screens = const [
           UserProfile(),
           FirefighterDashboard(),
-          UserDashboard(),
+          EmergenciesScreen(),
         ];
       });
     } else if (userType == "User") {
@@ -93,7 +116,7 @@ class _NavBarState extends State<NavBar> {
         screens = const [
           UserProfile(),
           UserDashboard(),
-          LocationPage(),
+          LiveStreamUser(),
         ];
       });
     } else {

@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:public_emergency_app/Features/User/Controllers/session_controller.dart';
-
+import '../../Controllers/message_sending.dart';
 import 'live_stream.dart';
 
 class LiveStreamUser extends StatefulWidget {
@@ -15,6 +17,7 @@ class LiveStreamUser extends StatefulWidget {
 
 final idController = TextEditingController();
 final sessionController = Get.put(SessionController());
+final smsController = Get.put(messageController());
 
 class _LiveStreamUserState extends State<LiveStreamUser> {
   @override
@@ -80,13 +83,16 @@ class _LiveStreamUserState extends State<LiveStreamUser> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     //save Current location to database
-                    saveCurrentLocation();
-                    jumpToLiveStream(
-                        context, sessionController.userid.toString(), true);
+                    // smsController.sendLocationViaSMS("SOS BUTTON PRESSED");
+                    saveCurrentLocation().whenComplete(() {
+                      jumpToLiveStream(
+                          sessionController.userid.toString(), true);
+                    });
+                    // jumpToLiveStream(sessionController.userid.toString(), true);
                   },
-                  child: const Text("SOS"),
+                  child: const Text("SOS", style: TextStyle(fontSize: 40)),
                 ),
               ),
             ],
@@ -97,29 +103,36 @@ class _LiveStreamUserState extends State<LiveStreamUser> {
   }
 
   saveCurrentLocation() async {
+    //adding in try catch
+
     //save Current location to database
-    final ref = FirebaseDatabase.instance.ref("sos/${sessionController.userid.toString()}");
-    await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high).then((value) {
-      ref.set({
-        "lat": value.latitude.toString(),
-        "long": value.longitude.toString(),
-        "videoId": sessionController.userid.toString(),
+    String videoId = sessionController.userid.toString();
+    final user = FirebaseAuth.instance.currentUser;
+    final ref = FirebaseDatabase.instance.ref("sos/${user!.uid.toString()}");
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((position) async {
+      await placemarkFromCoordinates(position!.latitude, position!.longitude)
+          .then((List<Placemark> placemarks) {
+        Placemark place = placemarks[0];
+        String address =
+            '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+        ref.set({
+          "address": address,
+          "email": user?.email.toString(),
+          "lat": position.latitude.toString(),
+          "long": position.longitude.toString(),
+          "videoId": user!.uid.toString(),
+        });
       });
     });
-
-
-
   }
-  jumpToLiveStream(BuildContext context, String liveId, bool isHost) {
+
+  jumpToLiveStream(String liveId, bool isHost) {
     if (liveId.isNotEmpty) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LiveStreamingPage(
-            liveId: liveId,
-            isHost: isHost,
-          ),
+      Get.to(
+        () => LiveStreamingPage(
+          liveId: liveId,
+          isHost: isHost,
         ),
       );
     } else {
