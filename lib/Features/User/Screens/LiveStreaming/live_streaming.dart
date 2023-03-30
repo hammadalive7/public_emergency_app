@@ -97,10 +97,10 @@ class _LiveStreamUserState extends State<LiveStreamUser> {
                     //save Current location to database
                     // smsController.sendLocationViaSMS("SOS BUTTON PRESSED");
                     saveCurrentLocation().whenComplete(() {
-                      jumpToLiveStream(
-                          sessionController.userid.toString(), true);
+                    //   jumpToLiveStream(
+                    //       sessionController.userid.toString(), true);
                     });
-                    // jumpToLiveStream(sessionController.userid.toString(), true);
+                    jumpToLiveStream(sessionController.userid.toString(), true);
                   },
                   child: const Text("SOS", style: TextStyle(fontSize: 40)),
                 ),
