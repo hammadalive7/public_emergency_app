@@ -6,6 +6,7 @@ import 'package:public_emergency_app/Features/FireFighter/firefighter_dashboard.
 import 'package:public_emergency_app/Features/Response%20Screen/emergencies_screen.dart';
 import 'package:public_emergency_app/Features/User/Screens/DashBoard/user_dashboard.dart';
 import 'package:public_emergency_app/Features/User/Screens/LiveStreaming/live_streaming.dart';
+import 'package:public_emergency_app/Features/User/Screens/Profile/profile_screen.dart';
 import 'package:public_emergency_app/Features/User/Screens/location_getter_sender.dart';
 
 import '../../../User.dart';
@@ -52,7 +53,7 @@ class _NavBarState extends State<NavBar> {
     getUserType().then((value) {
       if (userType == "Police") {
         screens = const [
-          UserProfile(),
+          ProfileScreen(),
           UserDashboard(),
           EmergenciesScreen(),
         ];
@@ -60,21 +61,21 @@ class _NavBarState extends State<NavBar> {
         debugPrint("Police");
       } else if (userType == "Ambulance") {
         screens = const [
-          UserProfile(),
+          ProfileScreen(),
           UserDashboard(),
           EmergenciesScreen(),
         ];
         debugPrint("Ambulance");
       } else if (userType == "Fire") {
         screens = const [
-          UserProfile(),
+          ProfileScreen(),
           UserDashboard(),
           EmergenciesScreen(),
         ];
         debugPrint("Fire");
       } else if (userType == "User") {
         screens = const [
-          UserProfile(),
+          ProfileScreen(),
           UserDashboard(),
           EmergenciesScreen(),
         ];
@@ -106,7 +107,7 @@ class _NavBarState extends State<NavBar> {
     } else if (userType == "Fire") {
       setState(() {
         screens = const [
-          UserProfile(),
+          ProfileScreen(),
           FirefighterDashboard(),
           EmergenciesScreen(),
         ];
@@ -114,7 +115,7 @@ class _NavBarState extends State<NavBar> {
     } else if (userType == "User") {
       setState(() {
         screens = const [
-          UserProfile(),
+          ProfileScreen(),
           UserDashboard(),
           LiveStreamUser(),
         ];
@@ -122,7 +123,7 @@ class _NavBarState extends State<NavBar> {
     } else {
       setState(() {
         screens = const [
-          UserProfile(),
+          ProfileScreen(),
           UserDashboard(),
           LiveStreamUser(),
         ];

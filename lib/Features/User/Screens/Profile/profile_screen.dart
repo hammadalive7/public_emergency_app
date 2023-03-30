@@ -8,13 +8,14 @@ import 'package:public_emergency_app/Features/User/Screens/Profile/profile_scree
 import '../../../Login/login_screen.dart';
 import '../../controllers/session_controller.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
 
-
-
-
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context){
 

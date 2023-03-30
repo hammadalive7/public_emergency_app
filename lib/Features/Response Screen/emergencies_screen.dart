@@ -1,6 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../User/Screens/LiveStreaming/live_stream.dart';
 
 class EmergenciesScreen extends StatefulWidget {
   const EmergenciesScreen({Key? key}) : super(key: key);
@@ -73,13 +76,44 @@ class _EmergenciesScreenState extends State<EmergenciesScreen> {
               itemCount: snapshot.data!.snapshot.children.length,
               itemBuilder: (context, index) {
                 return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   child: ListTile(
+                    onTap: () async{
+                      var uri = Uri.parse("google.navigation:q=${list[index]['lat']},${list[index]['long']}&mode=d");
+                      if (await canLaunch(uri.toString())) {
+                      await launch(uri.toString());
+                      } else {
+                      throw 'Could not launch ${uri.toString()}';
+                      }
+                    },
                     tileColor: Colors.lightBlueAccent,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    title: Text(list[index]['address']),
+                    title: Text(list[index]['address'],
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white),
+                    ),
+                    subtitle: Text(list[index]['time'],
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white),
+                    ),
+                    trailing:IconButton(
+                      icon: const Icon(Icons.video_call, color: Colors.red, size: 30),
+                      onPressed: () {
+                        Get.to(
+                              () => LiveStreamingPage(
+                            liveId: list[index]['videoId'],
+                            isHost: false,
+                          ),
+                        );
+                      },
+                    )
+
 
                   ),
                 );

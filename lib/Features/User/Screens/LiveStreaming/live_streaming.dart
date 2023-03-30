@@ -111,12 +111,13 @@ class _LiveStreamUserState extends State<LiveStreamUser> {
     final ref = FirebaseDatabase.instance.ref("sos/${user!.uid.toString()}");
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((position) async {
-      await placemarkFromCoordinates(position!.latitude, position!.longitude)
+      await placemarkFromCoordinates(position.latitude, position.longitude)
           .then((List<Placemark> placemarks) {
         Placemark place = placemarks[0];
         String address =
             '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
         ref.set({
+          "time": "${DateTime.now().hour}:${DateTime.now().minute} ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
           "address": address,
           "email": user?.email.toString(),
           "lat": position.latitude.toString(),
