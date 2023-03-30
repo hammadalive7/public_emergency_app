@@ -65,29 +65,45 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     if (userType == "Police") {
-      screens = const [
-        UserProfile(),
-        PoliceDashboard(),
-        UserDashboard(),
-      ];
+     setState(() {
+       screens = const [
+         UserProfile(),
+         PoliceDashboard(),
+         UserDashboard(),
+       ];
+     });
     } else if (userType == "Ambulance") {
-      screens = const [
-        UserProfile(),
-        AmbulanceDashboard(),
-        UserDashboard(),
-      ];
+     setState(() {
+       screens = const [
+         UserProfile(),
+         AmbulanceDashboard(),
+         UserDashboard(),
+       ];
+     });
     } else if (userType == "Fire") {
-      screens = const [
-        UserProfile(),
-        FirefighterDashboard(),
-        UserDashboard(),
-      ];
+      setState(() {
+        screens = const [
+          UserProfile(),
+          FirefighterDashboard(),
+          UserDashboard(),
+        ];
+      });
     } else if (userType == "User") {
-      screens = const [
-        UserProfile(),
-        UserDashboard(),
-        LiveStreamUser(),
-      ];
+      setState(() {
+        screens = const [
+          UserProfile(),
+          UserDashboard(),
+          LocationPage(),
+        ];
+      });
+    } else {
+      setState(() {
+        screens = const [
+          UserProfile(),
+          UserDashboard(),
+          LiveStreamUser(),
+        ];
+      });
     }
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
