@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -79,11 +81,27 @@ class _EmergenciesScreenState extends State<EmergenciesScreen> {
                   margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   child: ListTile(
                     onTap: () async{
-                      var uri = Uri.parse("google.navigation:q=${list[index]['lat']},${list[index]['long']}&mode=d");
-                      if (await canLaunch(uri.toString())) {
-                      await launch(uri.toString());
+                      var lat= list[index]['lat'];
+                      var long= list[index]['long'];
+                      String url = '';
+                      String urlAppleMaps = '';
+                      if (Platform.isAndroid) {
+                        url = 'http://www.google.com/maps/place/$lat,$long';
+                        if (await canLaunchUrl(Uri.parse(url))) {
+                          await launchUrl(Uri.parse(url));
+                        } else {
+                          throw 'Could not launch $url';
+                        }
                       } else {
-                      throw 'Could not launch ${uri.toString()}';
+                        urlAppleMaps = 'https://maps.apple.com/?q=$lat,$long';
+                        url = 'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
+                        if (await canLaunchUrl(Uri.parse(url))) {
+                          await launchUrl(Uri.parse(url));
+                        } else if (await canLaunchUrl(Uri.parse(urlAppleMaps))) {
+                          await launchUrl(Uri.parse(urlAppleMaps));
+                        } else {
+                          throw 'Could not launch $url';
+                        }
                       }
                     },
                     tileColor: Colors.lightBlueAccent,

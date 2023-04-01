@@ -15,20 +15,18 @@ class messageController extends GetxController {
   static messageController get instance => Get.find();
   final emergencyContactsController = Get.put(EmergencyContactsController());
 
-
-
   String? _currentAddress;
   Position? _currentPosition;
   void _sendSMS(String message, List<String> recipents) async {
-
     for (var i = 0; i < recipents.length; i++) {
       String _result = await BackgroundSms.sendMessage(
-        //add all phone numbers in phone number list
-          phoneNumber: recipents[i].toString(),
-          message: message
-      ).toString();
-      Get.snackbar("SMS", _result);
+              //add all phone numbers in phone number list
+              phoneNumber: recipents[i].toString(),
+              message: message)
+          .toString();
+      // Get.snackbar("SMS", _result);
     }
+    Get.snackbar("SMS", "Distress SMS Sent Successfully");
 
     print(recipents);
 

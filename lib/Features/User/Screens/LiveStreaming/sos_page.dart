@@ -95,7 +95,7 @@ class _LiveStreamUserState extends State<LiveStreamUser> {
                   ),
                   onPressed: () async {
                     //save Current location to database
-                    // smsController.sendLocationViaSMS("SOS BUTTON PRESSED");
+                    smsController.sendLocationViaSMS("SOS BUTTON PRESSED");
                     saveCurrentLocation().whenComplete(() {
                     //   jumpToLiveStream(
                     //       sessionController.userid.toString(), true);

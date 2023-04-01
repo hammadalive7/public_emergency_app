@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,7 @@ import '../../../Emergency Contacts/add_contacts.dart';
 import '../../Controllers/session_controller.dart';
 
 class ProfileFormWidget extends StatefulWidget {
-  ProfileFormWidget({
+  const ProfileFormWidget({
     Key? key,
   }) : super(key: key);
 
@@ -21,12 +22,12 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
   Widget build(BuildContext context) {
     final _formkey = GlobalKey<FormState>();
     String userEmail;
-
+    final user =FirebaseAuth.instance.currentUser;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30 - 10),
       // this function will get current user data form firebase
       child: StreamBuilder(
-          stream: ref.child(SessionController().userid.toString()).onValue,
+          stream: ref.child(user!.uid.toString()).onValue,
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               Map<dynamic, dynamic> map = snapshot.data.snapshot.value;
@@ -36,14 +37,13 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
               final phoneController =
               TextEditingController(text: map['Phone']);
               userEmail=map["email"].toString();
-              // debugPrint("USER EMAILLL: ${userEmail}");
 
               return Form(
                 key: _formkey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "User Info",
                       style: TextStyle(
                         color: Colors.lightBlueAccent,
@@ -66,7 +66,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                       },
 
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.person_outline_rounded),
+                        prefixIcon: const Icon(Icons.person_outline_rounded),
                         labelText: "Full Name",
                         hintText: "Full Name",
                         border: OutlineInputBorder(
@@ -88,7 +88,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                         // return null;
                       },
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.phone),
+                        prefixIcon: const Icon(Icons.phone),
                         labelText: "Phone Number",
                         hintText: "Phone Number",
                         border: OutlineInputBorder(
@@ -110,7 +110,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                         // return null;
                       },
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.email_outlined),
+                        prefixIcon: const Icon(Icons.email_outlined),
                         labelText: "Email",
                         hintText: "Email",
                         border: OutlineInputBorder(
@@ -140,8 +140,8 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
 
 
                           if ((_formkey.currentState)!.validate()) {
-                            updateprofile(nameController.text!.trim(),
-                                phoneController.text!.trim());
+                            updateprofile(nameController.text.trim(),
+                                phoneController.text.trim());
 
                             Get.snackbar("Save", "Profile Updated",
                                 snackPosition: SnackPosition.BOTTOM,
@@ -166,7 +166,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20))),
                         onPressed: () {
-                          Get.to(() => add_contact(),
+                          Get.to(() => const add_contact(),
                               transition: Transition.rightToLeft,
                               duration: const Duration(seconds: 1),
                               arguments: userEmail);
@@ -181,7 +181,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
             } else if (snapshot.hasError) {
               return Center(child: Text(snapshot.error.toString()));
             } else {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
           }),
     );
