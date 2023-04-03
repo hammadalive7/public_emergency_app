@@ -73,7 +73,7 @@ class messageController extends GetxController {
     }
   }
 
-  Future<Position> _getCurrentPosition() async {
+  Future<Position> getCurrentPosition() async {
     // final hasSmsPermission = handleSmsPermission();
 
     final hasPermission = await handleLocationPermission();
@@ -121,7 +121,7 @@ class messageController extends GetxController {
   }
 
   Future<void> sendLocationViaSMS(String EmergencyType) async {
-    await _getCurrentPosition().then((_currentAddress) async {
+    await getCurrentPosition().then((_currentAddress) async {
       if (_currentAddress != null) {
         // Get.snackbar("Location", _currentAddress!);
         // final Uri smsLaunchUri = Uri(

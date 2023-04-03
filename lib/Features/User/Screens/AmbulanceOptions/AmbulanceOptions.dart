@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -66,8 +69,32 @@ class AmbulanceOptions extends StatelessWidget {
                 leading: const Icon(Icons.map),
                 title: const Text('Ambulance Map Display'),
                 subtitle:
-                    const Text('Find the nearest fire station on the map'),
-                onTap: () {
+                    const Text('Find the nearest ambulance service on the map'),
+                onTap: () async {
+                  Position position = await Geolocator.getCurrentPosition(
+                      desiredAccuracy: LocationAccuracy.high);
+                  var lat= position.latitude;
+                  var long= position.longitude;
+                  String url = '';
+                  String urlAppleMaps = '';
+                  if (Platform.isAndroid) {
+                    url = "https://www.google.com/maps/search/ambulance/@$lat,$long,12.5z";
+                    if (await canLaunchUrl(Uri.parse(url))) {
+                      await launchUrl(Uri.parse(url));
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  } else {
+                    urlAppleMaps = 'https://maps.apple.com/?q=$lat,$long';
+                    url = 'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
+                    if (await canLaunchUrl(Uri.parse(url))) {
+                      await launchUrl(Uri.parse(url));
+                    } else if (await canLaunchUrl(Uri.parse(urlAppleMaps))) {
+                      await launchUrl(Uri.parse(urlAppleMaps));
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  }
                   // Add code here to display the nearest police station on the map
                 },
               ),
