@@ -8,12 +8,9 @@ import 'package:public_emergency_app/Features/User/Screens/DashBoard/user_dashbo
 import 'package:public_emergency_app/Features/User/Screens/LiveStreaming/sos_page.dart';
 import 'package:public_emergency_app/Features/User/Screens/Profile/profile_screen.dart';
 import 'package:public_emergency_app/Features/User/Screens/location_getter_sender.dart';
-
 import '../../../User.dart';
 import '../../Ambulance/ambulance_dashboard.dart';
 import '../../Police/police_dashboard.dart';
-import 'Profile/user_profile.dart';
-
 class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
 
@@ -26,109 +23,60 @@ class _NavBarState extends State<NavBar> {
   int currentIndex = 1;
   String userType = "";
   var screens = const [
-    UserProfile(),
+    ProfileScreen(),
     UserDashboard(),
-    LocationPage(),
+    LiveStreamUser(),
   ];
-  Future<String> getUserType() async {
-    var firebaseUser = FirebaseAuth.instance.currentUser;
-    var ref =
-        FirebaseDatabase.instance.ref().child('Users').child(firebaseUser!.uid);
-    final snapshot = await ref.get(); // you should use await on async methods
-    if (snapshot!.value != null) {
-      var userCurrentInfo = AppUser.fromSnapshot(snapshot);
-      setState(() {
-        userType = userCurrentInfo.userType;
-        debugPrint("User Type: $userType");
-      });
-      return userCurrentInfo.userType;
-    } else {
-      return "Error";
-    }
-  }
 
   @override
   void initState() {
     super.initState();
-    getUserType().then((value) {
-      if (userType == "Police") {
-        screens = const [
-          ProfileScreen(),
-          UserDashboard(),
-          EmergenciesScreen(),
-        ];
 
-        debugPrint("Police");
-      } else if (userType == "Ambulance") {
-        screens = const [
-          ProfileScreen(),
-          UserDashboard(),
-          EmergenciesScreen(),
-        ];
-        debugPrint("Ambulance");
-      } else if (userType == "Fire") {
-        screens = const [
-          ProfileScreen(),
-          UserDashboard(),
-          EmergenciesScreen(),
-        ];
-        debugPrint("Fire");
-      } else if (userType == "User") {
-        screens = const [
-          ProfileScreen(),
-          UserDashboard(),
-          EmergenciesScreen(),
-        ];
-        debugPrint("User");
-      } else {
-        debugPrint("Error");
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (userType == "Police") {
-     setState(() {
-       screens = const [
-         ProfileScreen(),
-         PoliceDashboard(),
-         EmergenciesScreen(),
-       ];
-     });
-    } else if (userType == "Ambulance") {
-     setState(() {
-       screens = const [
-         ProfileScreen(),
-         AmbulanceDashboard(),
-         EmergenciesScreen(),
-       ];
-     });
-    } else if (userType == "Fire") {
-      setState(() {
-        screens = const [
-          ProfileScreen(),
-          FirefighterDashboard(),
-          EmergenciesScreen(),
-        ];
-      });
-    } else if (userType == "User") {
-      setState(() {
-        screens = const [
-          ProfileScreen(),
-          UserDashboard(),
-          LiveStreamUser(),
-        ];
-      });
-    } else {
-      setState(() {
-        screens = const [
-          ProfileScreen(),
-          UserDashboard(),
-          LiveStreamUser(),
-        ];
-      });
-    }
+    // if (userType == "Police") {
+    //  setState(() {
+    //    screens = const [
+    //      ProfileScreen(),
+    //      PoliceDashboard(),
+    //      EmergenciesScreen(),
+    //    ];
+    //  });
+    // } else if (userType == "Ambulance") {
+    //  setState(() {
+    //    screens = const [
+    //      ProfileScreen(),
+    //      AmbulanceDashboard(),
+    //      EmergenciesScreen(),
+    //    ];
+    //  });
+    // } else if (userType == "Fire") {
+    //   setState(() {
+    //     screens = const [
+    //       ProfileScreen(),
+    //       FirefighterDashboard(),
+    //       EmergenciesScreen(),
+    //     ];
+    //   });
+    // } else if (userType == "User") {
+    //   setState(() {
+    //     screens = const [
+    //       ProfileScreen(),
+    //       UserDashboard(),
+    //       LiveStreamUser(),
+    //     ];
+    //   });
+    // } else {
+    //   setState(() {
+    //     screens = const [
+    //       ProfileScreen(),
+    //       UserDashboard(),
+    //       LiveStreamUser(),
+    //     ];
+    //   });
+    // }
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
           index: 1,
