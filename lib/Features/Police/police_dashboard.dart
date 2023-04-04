@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../Response Screen/emergencies_screen.dart';
+
 
 class PoliceDashboard extends StatefulWidget {
   const PoliceDashboard({Key? key}) : super(key: key);
@@ -12,10 +14,13 @@ class PoliceDashboard extends StatefulWidget {
 class _PoliceDashboardState extends State<PoliceDashboard> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: Center(
-        child: Text("Police Dashboard"),
+        child: ElevatedButton(onPressed:(){
+          Get.to(const EmergenciesScreen());
+        }, child: const Text("SOSs")
       ),
+    ),
     );
   }
 }

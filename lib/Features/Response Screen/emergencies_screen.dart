@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:public_emergency_app/Features/Response%20Screen/response_maps.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../firebase_options.dart';
@@ -82,29 +83,35 @@ class _EmergenciesScreenState extends State<EmergenciesScreen> {
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   child: ListTile(
-                    onTap: () async{
-                      var lat= list[index]['lat'];
-                      var long= list[index]['long'];
-                      String url = '';
-                      String urlAppleMaps = '';
-                      if (Platform.isAndroid) {
-                        url = 'http://www.google.com/maps/place/$lat,$long';
-                        if (await canLaunchUrl(Uri.parse(url))) {
-                          await launchUrl(Uri.parse(url));
-                        } else {
-                          throw 'Could not launch $url';
-                        }
-                      } else {
-                        urlAppleMaps = 'https://maps.apple.com/?q=$lat,$long';
-                        url = 'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
-                        if (await canLaunchUrl(Uri.parse(url))) {
-                          await launchUrl(Uri.parse(url));
-                        } else if (await canLaunchUrl(Uri.parse(urlAppleMaps))) {
-                          await launchUrl(Uri.parse(urlAppleMaps));
-                        } else {
-                          throw 'Could not launch $url';
-                        }
-                      }
+                    // onTap: () async{
+                    //   var lat= list[index]['lat'];
+                    //   var long= list[index]['long'];
+                    //   String url = '';
+                    //   String urlAppleMaps = '';
+                    //   if (Platform.isAndroid) {
+                    //     url = 'http://www.google.com/maps/place/$lat,$long';
+                    //     if (await canLaunchUrl(Uri.parse(url))) {
+                    //       await launchUrl(Uri.parse(url));
+                    //     } else {
+                    //       throw 'Could not launch $url';
+                    //     }
+                    //   } else {
+                    //     urlAppleMaps = 'https://maps.apple.com/?q=$lat,$long';
+                    //     url = 'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
+                    //     if (await canLaunchUrl(Uri.parse(url))) {
+                    //       await launchUrl(Uri.parse(url));
+                    //     } else if (await canLaunchUrl(Uri.parse(urlAppleMaps))) {
+                    //       await launchUrl(Uri.parse(urlAppleMaps));
+                    //     } else {
+                    //       throw 'Could not launch $url';
+                    //     }
+                    //   }
+                    // },
+                    onTap: (){
+                      var lat= double.parse(list[index]['lat']);
+                        var long= double.parse( list[index]['long']);
+                      // Get.to(EmergencyMaps(latitude:  lat, longitude: long));
+
                     },
                     tileColor: Colors.lightBlueAccent,
                     shape: RoundedRectangleBorder(
