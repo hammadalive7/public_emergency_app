@@ -1,14 +1,11 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 import 'package:url_launcher/url_launcher.dart';
-// import '../Response Screen/emergencies_screen.dart';
 import '../User/Controllers/message_sending.dart';
 import '../User/Screens/LiveStreaming/live_stream.dart';
 
@@ -260,7 +257,7 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
           if (snapshot.value != null) {
             Map<dynamic, dynamic> map = snapshot.value as dynamic;
              userType=map['UserType'];
-            activeRespondersRef.set({
+            activeRespondersRef.child(user!.uid.toString()).set({
               "lat": position.latitude.toString(),
               "long": position.longitude.toString(),
               "responderType": userType,
