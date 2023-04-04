@@ -738,6 +738,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  sliding_switch:
+    dependency: "direct main"
+    description:
+      name: sliding_switch
+      sha256: "049a9582c9bc30913ce4e34eb26063b468acf5fe47a053636bbf950e5b180dc0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   smooth_page_indicator:
     dependency: "direct main"
     description:

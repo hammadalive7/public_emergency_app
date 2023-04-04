@@ -52,6 +52,7 @@ dependencies:
   zego_uikit_prebuilt_live_streaming: ^2.3.6
   background_sms: ^0.0.4
   google_maps_flutter: ^2.2.5
+  sliding_switch: ^1.1.0
 
 
 dev_dependencies:
