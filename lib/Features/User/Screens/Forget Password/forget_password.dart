@@ -27,8 +27,31 @@ class ForgetPassword extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      SizedBox(width: 30,),
+                      Center(
+                        child: SizedBox.fromSize(
+                          size: Size(36, 36),
+                          child: ClipOval(
+                            child: Material(
+                              color: Colors.lightBlueAccent,
+                              child: InkWell(
+                                splashColor: Colors.white,
+                                onTap: () {  Get.back();
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(Icons.arrow_back, color: Colors.white, size: 30,),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(width: 10,),
                       // SizedBox(width: 15,),
                       // Center(
                       //   child: SizedBox.fromSize(
@@ -52,27 +75,34 @@ class ForgetPassword extends StatelessWidget {
                       //   ),
                       // ),
 
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+
                       Image(
                           image:
                               AssetImage("assets/logos/emergencyAppLogo.png"),
                           height: 100),
+                      Container(
+                        margin: const EdgeInsets.only(top: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Forget Password",
+                              style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      )
+
                     ],
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Forget Password",
-                          style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white),
-                        ),
-                      ],
-                    ),
-                  )
+                    ],
+                  ),
                 ],
               ),
             )),

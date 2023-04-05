@@ -140,11 +140,11 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
         builder: (BuildContext context, AsyncSnapshot<DatabaseEvent> snapshot) {
           if (snapshot.hasData) {
             DataSnapshot dataSnapshot = snapshot.data!.snapshot;
-            Map<dynamic, dynamic> list = dataSnapshot.value as dynamic;
+            Map<dynamic, dynamic> list =
+                dataSnapshot.value as dynamic ?? new Map();
             // List<dynamic> list = [];
             // list.clear();
             // list = map.values.toList();
-
             return ListView.builder(
               itemCount: 1,
               itemBuilder: (context, index) {
@@ -157,24 +157,31 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
                         var long = list['userLong'];
                         String url = '';
                         String urlAppleMaps = '';
-                        if (Platform.isAndroid) {
-                          url = 'http://www.google.com/maps/place/$lat,$long';
-                          if (await canLaunchUrl(Uri.parse(url))) {
-                            await launchUrl(Uri.parse(url));
-                          } else {
-                            throw 'Could not launch $url';
-                          }
+                        if (list['userLat'] == null ||
+                            list['userLong'] == null) {
+                          Get.snackbar('Error', 'No Emergency Location Found');
+                          return;
                         } else {
-                          urlAppleMaps = 'https://maps.apple.com/?q=$lat,$long';
-                          url =
-                              'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
-                          if (await canLaunchUrl(Uri.parse(url))) {
-                            await launchUrl(Uri.parse(url));
-                          } else if (await canLaunchUrl(
-                              Uri.parse(urlAppleMaps))) {
-                            await launchUrl(Uri.parse(urlAppleMaps));
+                          if (Platform.isAndroid) {
+                            url = 'http://www.google.com/maps/place/$lat,$long';
+                            if (await canLaunchUrl(Uri.parse(url))) {
+                              await launchUrl(Uri.parse(url));
+                            } else {
+                              throw 'Could not launch $url';
+                            }
                           } else {
-                            throw 'Could not launch $url';
+                            urlAppleMaps =
+                                'https://maps.apple.com/?q=$lat,$long';
+                            url =
+                                'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
+                            if (await canLaunchUrl(Uri.parse(url))) {
+                              await launchUrl(Uri.parse(url));
+                            } else if (await canLaunchUrl(
+                                Uri.parse(urlAppleMaps))) {
+                              await launchUrl(Uri.parse(urlAppleMaps));
+                            } else {
+                              throw 'Could not launch $url';
+                            }
                           }
                         }
                       },
@@ -183,36 +190,50 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       title: Text(
-                        list['userAddress'],
+                        list['userAddress'] ?? 'No Emergency Request Yet',
                         style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),
+                      // subtitle: Text(
+                      //   // list['userID'],
+                      //   'Distance: ${calculateDistance(
+                      //       double.parse(list['userLat'].toString()),
+                      //       double.parse(list['userLong'].toString()),
+                      //       double.parse(list['responderLat'].toString()),
+                      //       double.parse(list['responderLong'].toString())).toStringAsFixed(2)} km',
+                      //   style: const TextStyle(
+                      //       fontSize: 15,
+                      //       fontWeight: FontWeight.w700,
+                      //       color: Colors.white),
+                      // ),
                       subtitle: Text(
-                        // list['userID'],
-                        'Distance: ${calculateDistance(
-                            double.parse(list['userLat'].toString()),
-                            double.parse(list['userLong'].toString()),
-                            double.parse(list['responderLat'].toString()),
-                            double.parse(list['responderLong'].toString())).toStringAsFixed(2)} km',
+                        'Distance: ${list['userLat'] != null && list['userLong'] != null && list['responderLat'] != null && list['responderLong'] != null ? '${calculateDistance(double.tryParse(list['userLat'].toString()) ?? 0.0,
+                            // Use a default value of 0.0 if the parsing fails or the value is null
+                            double.tryParse(list['userLong'].toString()) ?? 0.0, double.tryParse(list['responderLat'].toString()) ?? 0.0, double.tryParse(list['responderLong'].toString()) ?? 0.0).toStringAsFixed(2)} km' : ''}',
                         style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
                       ),
                       trailing: IconButton(
-                        icon: const Icon(Icons.video_call,
-                            color: Colors.red, size: 30),
-                        onPressed: () {
-                          Get.to(
-                            () => LiveStreamingPage(
-                              liveId: list['userID'],
-                              isHost: false,
-                            ),
-                          );
-                        },
-                      )),
+                          icon: const Icon(Icons.video_call,
+                              color: Colors.red, size: 30),
+                          onPressed: () {
+                            if (list['userLat'] == null ||
+                                list['userLong'] == null) {
+                              Get.snackbar('Error', 'No Emergency Request Yet');
+                              return;
+                            } else {
+                              Get.to(
+                                () => LiveStreamingPage(
+                                  liveId: list['userID'],
+                                  isHost: false,
+                                ),
+                              );
+                            }
+                          })),
                 );
               },
             );

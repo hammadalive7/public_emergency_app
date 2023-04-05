@@ -1,14 +1,7 @@
-import 'dart:io';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:public_emergency_app/Features/Response%20Screen/response_maps.dart';
-import 'package:public_emergency_app/Features/User/Screens/Profile/profile_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../../firebase_options.dart';
 import '../ListOfResponders/select_responder.dart';
 import '../User/Screens/LiveStreaming/live_stream.dart';
 
@@ -26,8 +19,7 @@ class _EmergenciesScreenState extends State<EmergenciesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-
-
+      
       extendBodyBehindAppBar: false,
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
