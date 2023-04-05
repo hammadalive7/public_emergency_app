@@ -43,7 +43,7 @@ class _LiveStreamUserState extends State<LiveStreamUser> {
           ),
         ),
         bottom: PreferredSize(
-            preferredSize: Size.fromHeight(Get.height * 0.1),
+            preferredSize: Size.fromHeight(Get.height * 0.12),
             child: Container(
               padding: const EdgeInsets.only(bottom: 15),
               child: Column(
@@ -63,7 +63,7 @@ class _LiveStreamUserState extends State<LiveStreamUser> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text(
-                          "Police Options",
+                          "SOS",
                           style: TextStyle(
                               fontSize: 28,
                               fontWeight: FontWeight.w700,

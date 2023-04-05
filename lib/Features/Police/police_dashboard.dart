@@ -163,7 +163,7 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
                           return;
                         } else {
                           if (Platform.isAndroid) {
-                            url = 'http://www.google.com/maps/place/$lat,$long';
+                            url = 'https://www.google.com/maps/search/?api=1&query=$lat,$long';
                             if (await canLaunchUrl(Uri.parse(url))) {
                               await launchUrl(Uri.parse(url));
                             } else {

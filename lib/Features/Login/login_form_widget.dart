@@ -127,6 +127,7 @@ class _LoginFormState extends State<LoginForm> {
                 child: Text("Log in".toUpperCase()),
               ),
             ),
+            SizedBox(height: 10,),
             SizedBox(
               width: double.infinity,
               height: 50,
