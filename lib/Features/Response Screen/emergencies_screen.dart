@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:public_emergency_app/Features/Response%20Screen/response_maps.dart';
+import 'package:public_emergency_app/Features/User/Screens/Profile/profile_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../firebase_options.dart';
@@ -24,6 +25,21 @@ class _EmergenciesScreenState extends State<EmergenciesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton:FloatingActionButton(
+        backgroundColor: Colors.lightBlueAccent,
+        foregroundColor: Colors.white,
+        shape: StadiumBorder(
+            side: BorderSide(
+                color: Colors.white24, width: 4)),
+        onPressed: () {
+          Get.to(() => ProfileScreen());
+        },
+        child: Icon(Icons.person_outline),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+
+
+      extendBodyBehindAppBar: false,
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
         centerTitle: true,
@@ -68,97 +84,100 @@ class _EmergenciesScreenState extends State<EmergenciesScreen> {
           ),
         ),
       ),
-      body: StreamBuilder(
-        stream: ref.onValue,
-        builder: (BuildContext context, AsyncSnapshot<DatabaseEvent> snapshot) {
-          if (snapshot.hasData) {
-            DataSnapshot dataSnapshot = snapshot.data!.snapshot;
-            Map<dynamic, dynamic> map = dataSnapshot.value as dynamic;
-            List<dynamic> list = [];
-            list.clear();
-            list = map.values.toList();
+      body: Container(
+        padding: const EdgeInsets.only(top: 30),
+        child: StreamBuilder(
+          stream: ref.onValue,
+          builder: (BuildContext context, AsyncSnapshot<DatabaseEvent> snapshot) {
+            if (snapshot.hasData) {
+              DataSnapshot dataSnapshot = snapshot.data!.snapshot;
+              Map<dynamic, dynamic> map = dataSnapshot.value as dynamic ?? {};
+              List<dynamic> list = [];
+              list.clear();
+              list = map.values.toList();
 
-            return ListView.builder(
-              itemCount: snapshot.data!.snapshot.children.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  child: ListTile(
-                      // onTap: () async{
-                      //   var lat= list[index]['lat'];
-                      //   var long= list[index]['long'];
-                      //   String url = '';
-                      //   String urlAppleMaps = '';
-                      //   if (Platform.isAndroid) {
-                      //     url = 'http://www.google.com/maps/place/$lat,$long';
-                      //     if (await canLaunchUrl(Uri.parse(url))) {
-                      //       await launchUrl(Uri.parse(url));
-                      //     } else {
-                      //       throw 'Could not launch $url';
-                      //     }
-                      //   } else {
-                      //     urlAppleMaps = 'https://maps.apple.com/?q=$lat,$long';
-                      //     url = 'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
-                      //     if (await canLaunchUrl(Uri.parse(url))) {
-                      //       await launchUrl(Uri.parse(url));
-                      //     } else if (await canLaunchUrl(Uri.parse(urlAppleMaps))) {
-                      //       await launchUrl(Uri.parse(urlAppleMaps));
-                      //     } else {
-                      //       throw 'Could not launch $url';
-                      //     }
-                      //   }
-                      // },
-                      onTap: () {
-                        var lat = double.parse(list[index]['lat']);
-                        var long = double.parse(list[index]['long']);
-                        var address = list[index]['address'];
-                        var userId = list[index]['videoId'];
-                        //ab dekh to
-                        Get.to(() => SelectResponder(
-                            userLat: lat,
-                            userLong: long,
-                            userAddress: address,
-                            userID: userId));
-                      },
-                      tileColor: Colors.lightBlueAccent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      title: Text(
-                        list[index]['address'],
-                        style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white),
-                      ),
-                      subtitle: Text(
-                        list[index]['time'],
-                        style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white),
-                      ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.video_call,
-                            color: Colors.red, size: 30),
-                        onPressed: () {
-                          Get.to(
-                            () => LiveStreamingPage(
-                              liveId: list[index]['videoId'],
-                              isHost: false,
-                            ),
-                          );
+              return ListView.builder(
+                itemCount: snapshot.data!.snapshot.children.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    child: ListTile(
+                        // onTap: () async{
+                        //   var lat= list[index]['lat'];
+                        //   var long= list[index]['long'];
+                        //   String url = '';
+                        //   String urlAppleMaps = '';
+                        //   if (Platform.isAndroid) {
+                        //     url = 'http://www.google.com/maps/place/$lat,$long';
+                        //     if (await canLaunchUrl(Uri.parse(url))) {
+                        //       await launchUrl(Uri.parse(url));
+                        //     } else {
+                        //       throw 'Could not launch $url';
+                        //     }
+                        //   } else {
+                        //     urlAppleMaps = 'https://maps.apple.com/?q=$lat,$long';
+                        //     url = 'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
+                        //     if (await canLaunchUrl(Uri.parse(url))) {
+                        //       await launchUrl(Uri.parse(url));
+                        //     } else if (await canLaunchUrl(Uri.parse(urlAppleMaps))) {
+                        //       await launchUrl(Uri.parse(urlAppleMaps));
+                        //     } else {
+                        //       throw 'Could not launch $url';
+                        //     }
+                        //   }
+                        // },
+                        onTap: () {
+                          var lat = double.parse(list[index]['lat']);
+                          var long = double.parse(list[index]['long']);
+                          var address = list[index]['address'];
+                          var userId = list[index]['videoId'];
+                          //ab dekh to
+                          Get.to(() => SelectResponder(
+                              userLat: lat,
+                              userLong: long,
+                              userAddress: address,
+                              userID: userId));
                         },
-                      )),
-                );
-              },
+                        tileColor: Colors.lightBlueAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        title: Text(
+                          list[index]['address'],
+                          style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
+                        ),
+                        subtitle: Text(
+                          list[index]['time'],
+                          style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.video_call,
+                              color: Colors.red, size: 30),
+                          onPressed: () {
+                            Get.to(
+                              () => LiveStreamingPage(
+                                liveId: list[index]['videoId'],
+                                isHost: false,
+                              ),
+                            );
+                          },
+                        )),
+                  );
+                },
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
             );
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+          },
+        ),
       ),
     );
   }

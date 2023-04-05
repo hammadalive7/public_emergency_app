@@ -30,8 +30,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
           stream: ref.child(user!.uid.toString()).onValue,
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
-              Map<dynamic, dynamic> map = snapshot.data.snapshot.value;
-
+              Map<dynamic, dynamic> map = snapshot.data.snapshot.value ?? {};
               final nameController =
               TextEditingController(text: map['UserName']);
               final phoneController =
@@ -178,9 +177,11 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
                   ],
                 ),
               );
-            } else if (snapshot.hasError) {
-              return Center(child: Text(snapshot.error.toString()));
-            } else {
+            }
+            // else if (snapshot.hasError) {
+            //   return Center(child: Text(snapshot.error.toString()));
+            // }
+            else {
               return const Center(child: CircularProgressIndicator());
             }
           }),
