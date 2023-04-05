@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:public_emergency_app/Features/Response%20Screen/emergencies_screen.dart';
 
 import '../User/Controllers/login_controller.dart';
 import '../User/Screens/Forget Password/forget_password.dart';
@@ -125,7 +126,23 @@ class _LoginFormState extends State<LoginForm> {
                 },
                 child: Text("Log in".toUpperCase()),
               ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.lightBlueAccent,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20))),
+                onPressed: () async {
+                Get.offAll(const EmergenciesScreen());
+                },
+                child: Text("ADMIN SCREEN".toUpperCase()),
+              ),
             )
+
           ],
         ),
       ),
