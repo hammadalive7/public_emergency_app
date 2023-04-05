@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:public_emergency_app/Features/Police/police_responder_screen.dart';
 import 'dart:math';
+import '../Response Screen/emergencies_screen.dart';
 import '../User/Screens/LiveStreaming/live_stream.dart';
 
 class SelectResponder extends StatefulWidget {
