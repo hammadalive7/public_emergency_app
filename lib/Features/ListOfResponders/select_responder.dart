@@ -85,7 +85,7 @@ class _SelectResponderState extends State<SelectResponder> {
         builder: (BuildContext context, AsyncSnapshot<DatabaseEvent> snapshot) {
           if (snapshot.hasData) {
             DataSnapshot dataSnapshot = snapshot.data!.snapshot;
-            Map<dynamic, dynamic> map = dataSnapshot.value as dynamic;
+            Map<dynamic, dynamic> map = dataSnapshot.value as dynamic ?? {};
             List<dynamic> list = [];
             list.clear();
             list = map.values.toList();

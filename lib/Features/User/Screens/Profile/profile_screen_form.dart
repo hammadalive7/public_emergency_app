@@ -23,6 +23,7 @@ class _ProfileFormWidgetState extends State<ProfileFormWidget> {
     final _formkey = GlobalKey<FormState>();
     String userEmail;
     final user =FirebaseAuth.instance.currentUser;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30 - 10),
       // this function will get current user data form firebase
