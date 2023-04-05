@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:public_emergency_app/Features/User/Screens/LiveStreaming/sos_page.dart';
+import 'package:public_emergency_app/Features/User/Screens/Profile/profile_screen.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../User/Controllers/message_sending.dart';
@@ -51,6 +52,20 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton:FloatingActionButton(
+        backgroundColor: Colors.lightBlueAccent,
+        foregroundColor: Colors.white,
+        shape: StadiumBorder(
+            side: BorderSide(
+                color: Colors.white24, width: 4)),
+        onPressed: () {
+          Get.to(() => const ProfileScreen());
+        },
+        child: Icon(Icons.person),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+
+      extendBodyBehindAppBar: false,
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
         centerTitle: true,
@@ -61,7 +76,7 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
           ),
         ),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(Get.height * 0.20),
+          preferredSize: Size.fromHeight(Get.height * 0.16),
           child: Container(
             padding: const EdgeInsets.only(bottom: 15),
             child: Column(
@@ -93,7 +108,7 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Text(
                       //   'Set your status: ${status}',
@@ -150,7 +165,7 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
               itemBuilder: (context, index) {
                 return Container(
                   margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      const EdgeInsets.symmetric(vertical: 40, horizontal: 10),
                   child: ListTile(
                       onTap: () async {
                         var lat = list['userLat'];

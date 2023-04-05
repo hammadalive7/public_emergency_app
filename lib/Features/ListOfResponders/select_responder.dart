@@ -52,32 +52,57 @@ class _SelectResponderState extends State<SelectResponder> {
           preferredSize: Size.fromHeight(Get.height * 0.09),
           child: Container(
             padding: const EdgeInsets.only(bottom: 15),
-            child: Column(
+            child: Row(
               children: [
-                Row(
+                SizedBox(width: 30,),
+                Center(
+                  child: SizedBox.fromSize(
+                    size: Size(36, 36),
+                    child: ClipOval(
+                      child: Material(
+                        color: Colors.lightBlueAccent,
+                        child: InkWell(
+                          splashColor: Colors.white,
+                          onTap: () {  Get.back();
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.arrow_back, color: Colors.white, size: 30,),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                SizedBox(width: 30,),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image(
                         image: const AssetImage(
                             "assets/logos/emergencyAppLogo.png"),
                         height: Get.height * 0.08),
+                    Container(
+                      margin: const EdgeInsets.only(top: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            "Select Responders",
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    )
+
                   ],
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        "Select Responders",
-                        style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white),
-                      ),
-                    ],
-                  ),
-                )
               ],
             ),
           ),

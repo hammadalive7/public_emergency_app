@@ -38,15 +38,7 @@ class SignUpController extends GetxController {
           'UserName': username,
           'Phone': Phone,
           'UserType': Usertype,
-          'currentEmergencyAssigned': '',
-          'onDuty': 'false',
-          'currentLat': '',
-          'currentLong': '',
-          "time": "",
-          "address": "",
-          "lat": "",
-          "long": "",
-          "videoId":"",
+
         });
 
         Get.offAll(() => const VerifyEmailPage());

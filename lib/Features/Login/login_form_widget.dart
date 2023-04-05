@@ -138,7 +138,7 @@ class _LoginFormState extends State<LoginForm> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20))),
                 onPressed: () async {
-                Get.offAll(const EmergenciesScreen());
+                Get.to(const EmergenciesScreen());
                 },
                 child: Text("ADMIN SCREEN".toUpperCase()),
               ),

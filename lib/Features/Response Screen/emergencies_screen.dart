@@ -1,7 +1,10 @@
 
+import 'dart:io';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../ListOfResponders/select_responder.dart';
 import '../User/Screens/LiveStreaming/live_stream.dart';
 
@@ -138,17 +141,52 @@ class _EmergenciesScreenState extends State<EmergenciesScreen> {
                               fontWeight: FontWeight.w700,
                               color: Colors.white),
                         ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.video_call,
-                              color: Colors.red, size: 30),
-                          onPressed: () {
-                            Get.to(
-                              () => LiveStreamingPage(
-                                liveId: list[index]['videoId'],
-                                isHost: false,
-                              ),
-                            );
-                          },
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.location_on,
+                                  color: Colors.orange, size: 25),
+                              onPressed: () async {
+                                   var lat= list[index]['lat'];
+                                  var long= list[index]['long'];
+                                  String url = '';
+                                  String urlAppleMaps = '';
+                                  if (Platform.isAndroid) {
+                                    url = 'https://www.google.com/maps/search/?api=1&query=$lat,$long';
+                                    if (await canLaunchUrl(Uri.parse(url))) {
+                                      await launchUrl(Uri.parse(url));
+                                    } else {
+                                      throw 'Could not launch $url';
+                                    }
+                                  } else {
+                                    urlAppleMaps = 'https://maps.apple.com/?q=$lat,$long';
+                                    url = 'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
+                                    if (await canLaunchUrl(Uri.parse(url))) {
+                                      await launchUrl(Uri.parse(url));
+                                    } else if (await canLaunchUrl(Uri.parse(urlAppleMaps))) {
+                                      await launchUrl(Uri.parse(urlAppleMaps));
+                                    } else {
+                                      throw 'Could not launch $url';
+                                    }
+                                  }
+
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.video_call,
+                                  color: Colors.red, size: 25),
+                              onPressed: () {
+                                Get.to(
+                                  () => LiveStreamingPage(
+                                    liveId: list[index]['videoId'],
+                                    isHost: false,
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         )),
                   );
                 },

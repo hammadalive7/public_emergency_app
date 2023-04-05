@@ -25,7 +25,7 @@ class FireFighterOptions extends StatelessWidget {
           ),
         ),
         bottom: PreferredSize(
-            preferredSize: Size.fromHeight(Get.height * 0.1),
+            preferredSize: Size.fromHeight(Get.height * 0.13),
             child: Container(
               padding: const EdgeInsets.only(bottom: 15),
               child: Column(
@@ -65,6 +65,11 @@ class FireFighterOptions extends StatelessWidget {
           children: [
             Card(
               child: ListTile(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15.0),
+                  ),
+                ),
                 tileColor: Colors.blue.shade300,
                 leading: const Icon(Icons.map),
                 title: const Text('Fire Station Map Display'),
@@ -101,6 +106,11 @@ class FireFighterOptions extends StatelessWidget {
             ),
             Card(
               child: ListTile(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15.0),
+                    ),
+                  ),
                   tileColor: Colors.blue.shade600,
                   leading: const Icon(Icons.call),
                   title: const Text('Call'),
@@ -120,6 +130,11 @@ class FireFighterOptions extends StatelessWidget {
             ),
             Card(
               child: ListTile(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(15.0),
+                  ),
+                ),
                 tileColor: const Color(0xfff85757),
                 leading: const Icon(Icons.message),
                 title: const Text('Send Distress Message'),

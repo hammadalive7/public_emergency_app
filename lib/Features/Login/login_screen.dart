@@ -2,11 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-
 import '../../../../Common Widgets/form_footer.dart';
 import 'login_form_widget.dart';
-
 
 class LoginScreen extends StatelessWidget  {
   const LoginScreen({Key? key}) : super(key: key);
@@ -36,7 +33,6 @@ class LoginScreen extends StatelessWidget  {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
                       Image(image: const AssetImage("assets/logos/emergencyAppLogo.png"), height: Get.height * 0.1),
                     ],
                   ),

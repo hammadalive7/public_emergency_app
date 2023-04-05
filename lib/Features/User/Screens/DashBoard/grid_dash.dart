@@ -10,26 +10,26 @@ import 'package:public_emergency_app/Features/User/Screens/Profile/user_profile.
 class GridDashboard extends StatelessWidget {
   Items item1 = Items(
       title: "Police",
-      subtitle: "Emergency, Police ",
+      subtitle: "Emergency Police ",
       event: "",
       img: "assets/logos/policeman.png");
 
   Items item2 = Items(
     title: "Fire Brigade",
-    subtitle: "Emergency, Fire Brigade",
+    subtitle: "Emergency Fire Brigade",
     event: "",
     img: "assets/logos/fire-truck.png",
   );
 
   Items item3 = Items(
     title: "Ambulance",
-    subtitle: "Emergency, Ambulance",
+    subtitle: "Emergency Ambulance",
     event: "",
     img: "assets/logos/ambulance.png",
   );
   Items item4 = Items(
     title: "Hospitals",
-    subtitle: "Emergency, Hospitals",
+    subtitle: "Emergency Hospitals",
     event: "",
     img: "assets/logos/hospital.png",
   );
@@ -45,7 +45,7 @@ class GridDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Items> myList = [item1, item2, item3, item4];
-    var color = 0xfff85757;
+    var color = 0xff2471A3;
     return GridView.count(
         childAspectRatio: 1.0,
         padding: const EdgeInsets.only(left: 6, right: 6),
@@ -96,7 +96,7 @@ class GridDashboard extends StatelessWidget {
                     style: GoogleFonts.openSans(
                         textStyle: const TextStyle(
                             color: Colors.white,
-                            fontSize: 13,
+                            fontSize: 11,
                             fontWeight: FontWeight.w600)),
                   ),
                   const SizedBox(
