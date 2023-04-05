@@ -82,30 +82,30 @@ class _EmergenciesScreenState extends State<EmergenciesScreen> {
                 return Container(
                   margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   child: ListTile(
-                      onTap: () async{
-                        var lat= list[index]['lat'];
-                        var long= list[index]['long'];
-                        String url = '';
-                        String urlAppleMaps = '';
-                        if (Platform.isAndroid) {
-                          url = 'http://www.google.com/maps/place/$lat,$long';
-                          if (await canLaunchUrl(Uri.parse(url))) {
-                            await launchUrl(Uri.parse(url));
-                          } else {
-                            throw 'Could not launch $url';
-                          }
-                        } else {
-                          urlAppleMaps = 'https://maps.apple.com/?q=$lat,$long';
-                          url = 'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
-                          if (await canLaunchUrl(Uri.parse(url))) {
-                            await launchUrl(Uri.parse(url));
-                          } else if (await canLaunchUrl(Uri.parse(urlAppleMaps))) {
-                            await launchUrl(Uri.parse(urlAppleMaps));
-                          } else {
-                            throw 'Could not launch $url';
-                          }
-                        }
-                      },
+                      // onTap: () async{
+                      //   var lat= list[index]['lat'];
+                      //   var long= list[index]['long'];
+                      //   String url = '';
+                      //   String urlAppleMaps = '';
+                      //   if (Platform.isAndroid) {
+                      //     url = 'http://www.google.com/maps/place/$lat,$long';
+                      //     if (await canLaunchUrl(Uri.parse(url))) {
+                      //       await launchUrl(Uri.parse(url));
+                      //     } else {
+                      //       throw 'Could not launch $url';
+                      //     }
+                      //   } else {
+                      //     urlAppleMaps = 'https://maps.apple.com/?q=$lat,$long';
+                      //     url = 'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
+                      //     if (await canLaunchUrl(Uri.parse(url))) {
+                      //       await launchUrl(Uri.parse(url));
+                      //     } else if (await canLaunchUrl(Uri.parse(urlAppleMaps))) {
+                      //       await launchUrl(Uri.parse(urlAppleMaps));
+                      //     } else {
+                      //       throw 'Could not launch $url';
+                      //     }
+                      //   }
+                      // },
                       tileColor: Colors.lightBlueAccent,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),

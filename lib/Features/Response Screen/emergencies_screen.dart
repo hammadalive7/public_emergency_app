@@ -8,6 +8,7 @@ import 'package:public_emergency_app/Features/Response%20Screen/response_maps.da
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../firebase_options.dart';
+import '../ListOfResponders/select_responder.dart';
 import '../User/Screens/LiveStreaming/live_stream.dart';
 
 class EmergenciesScreen extends StatefulWidget {
@@ -81,68 +82,75 @@ class _EmergenciesScreenState extends State<EmergenciesScreen> {
               itemCount: snapshot.data!.snapshot.children.length,
               itemBuilder: (context, index) {
                 return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   child: ListTile(
-                    // onTap: () async{
-                    //   var lat= list[index]['lat'];
-                    //   var long= list[index]['long'];
-                    //   String url = '';
-                    //   String urlAppleMaps = '';
-                    //   if (Platform.isAndroid) {
-                    //     url = 'http://www.google.com/maps/place/$lat,$long';
-                    //     if (await canLaunchUrl(Uri.parse(url))) {
-                    //       await launchUrl(Uri.parse(url));
-                    //     } else {
-                    //       throw 'Could not launch $url';
-                    //     }
-                    //   } else {
-                    //     urlAppleMaps = 'https://maps.apple.com/?q=$lat,$long';
-                    //     url = 'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
-                    //     if (await canLaunchUrl(Uri.parse(url))) {
-                    //       await launchUrl(Uri.parse(url));
-                    //     } else if (await canLaunchUrl(Uri.parse(urlAppleMaps))) {
-                    //       await launchUrl(Uri.parse(urlAppleMaps));
-                    //     } else {
-                    //       throw 'Could not launch $url';
-                    //     }
-                    //   }
-                    // },
-                    onTap: (){
-                      var lat= double.parse(list[index]['lat']);
-                        var long= double.parse( list[index]['long']);
-                      // Get.to(EmergencyMaps(latitude:  lat, longitude: long));
-
-                    },
-                    tileColor: Colors.lightBlueAccent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    title: Text(list[index]['address'],
+                      // onTap: () async{
+                      //   var lat= list[index]['lat'];
+                      //   var long= list[index]['long'];
+                      //   String url = '';
+                      //   String urlAppleMaps = '';
+                      //   if (Platform.isAndroid) {
+                      //     url = 'http://www.google.com/maps/place/$lat,$long';
+                      //     if (await canLaunchUrl(Uri.parse(url))) {
+                      //       await launchUrl(Uri.parse(url));
+                      //     } else {
+                      //       throw 'Could not launch $url';
+                      //     }
+                      //   } else {
+                      //     urlAppleMaps = 'https://maps.apple.com/?q=$lat,$long';
+                      //     url = 'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
+                      //     if (await canLaunchUrl(Uri.parse(url))) {
+                      //       await launchUrl(Uri.parse(url));
+                      //     } else if (await canLaunchUrl(Uri.parse(urlAppleMaps))) {
+                      //       await launchUrl(Uri.parse(urlAppleMaps));
+                      //     } else {
+                      //       throw 'Could not launch $url';
+                      //     }
+                      //   }
+                      // },
+                      onTap: () {
+                        var lat = double.parse(list[index]['lat']);
+                        var long = double.parse(list[index]['long']);
+                        var address = list[index]['address'];
+                        var userId = list[index]['videoId'];
+                        //ab dekh to
+                        Get.to(() => SelectResponder(
+                            userLat: lat,
+                            userLong: long,
+                            userAddress: address,
+                            userID: userId));
+                      },
+                      tileColor: Colors.lightBlueAccent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      title: Text(
+                        list[index]['address'],
                         style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
-                    ),
-                    subtitle: Text(list[index]['time'],
+                      ),
+                      subtitle: Text(
+                        list[index]['time'],
                         style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
                             color: Colors.white),
-                    ),
-                    trailing:IconButton(
-                      icon: const Icon(Icons.video_call, color: Colors.red, size: 30),
-                      onPressed: () {
-                        Get.to(
-                              () => LiveStreamingPage(
-                            liveId: list[index]['videoId'],
-                            isHost: false,
-                          ),
-                        );
-                      },
-                    )
-
-
-                  ),
+                      ),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.video_call,
+                            color: Colors.red, size: 30),
+                        onPressed: () {
+                          Get.to(
+                            () => LiveStreamingPage(
+                              liveId: list[index]['videoId'],
+                              isHost: false,
+                            ),
+                          );
+                        },
+                      )),
                 );
               },
             );

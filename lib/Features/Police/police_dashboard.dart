@@ -4,10 +4,12 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:public_emergency_app/Features/User/Screens/LiveStreaming/sos_page.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../User/Controllers/message_sending.dart';
 import '../User/Screens/LiveStreaming/live_stream.dart';
+import 'dart:math';
 
 class PoliceDashboard extends StatefulWidget {
   const PoliceDashboard({Key? key}) : super(key: key);
@@ -16,7 +18,9 @@ class PoliceDashboard extends StatefulWidget {
   State<PoliceDashboard> createState() => _PoliceDashboardState();
 }
 
-final sosRef = FirebaseDatabase.instance.ref().child('sos');
+final user = FirebaseAuth.instance.currentUser;
+final assignmedRef =
+    FirebaseDatabase.instance.ref().child('assigned/${user!.uid}');
 final activeRespondersRef =
     FirebaseDatabase.instance.ref().child('activeResponders');
 final userRef = FirebaseDatabase.instance.ref().child('Users');
@@ -25,15 +29,23 @@ final locationController = Get.put(messageController());
 late Position position;
 String status = '';
 
+double calculateDistance(lat1, lon1, lat2, lon2) {
+  var p = 0.017453292519943295;
+  var a = 0.5 -
+      cos((lat2 - lat1) * p) / 2 +
+      cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
+  return 12742 * asin(sqrt(a));
+}
+
 class _PoliceDashboardState extends State<PoliceDashboard> {
   final user = FirebaseAuth.instance.currentUser;
   var Value = false;
+
   // late Stream<DatabaseEvent> stream = sosRef.child(user!.uid.toString()).onValue;
 
   @override
-  void initState()   {
+  void initState() {
     super.initState();
-
   }
 
   @override
@@ -83,15 +95,15 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Set your status: ${status}',
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          backgroundColor: Colors.white,
-                          color: setColor(),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      // Text(
+                      //   'Set your status: ${status}',
+                      //   style: TextStyle(
+                      //     fontSize: 15.0,
+                      //     backgroundColor: Colors.white,
+                      //     color: setColor(),
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
                       SlidingSwitch(
                         value: Value,
                         // initial value of the switch
@@ -124,101 +136,103 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
       ),
       body: Container(
           child: StreamBuilder(
-                  stream: sosRef.onValue,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<DatabaseEvent> snapshot) {
-                    if (snapshot.hasData) {
-                      DataSnapshot dataSnapshot = snapshot.data!.snapshot;
-                      Map<dynamic, dynamic> map = dataSnapshot.value as dynamic;
-                      List<dynamic> list = [];
-                      list.clear();
-                      list = map.values.toList();
+        stream: assignmedRef.onValue,
+        builder: (BuildContext context, AsyncSnapshot<DatabaseEvent> snapshot) {
+          if (snapshot.hasData) {
+            DataSnapshot dataSnapshot = snapshot.data!.snapshot;
+            Map<dynamic, dynamic> list = dataSnapshot.value as dynamic;
+            // List<dynamic> list = [];
+            // list.clear();
+            // list = map.values.toList();
 
-                      return ListView.builder(
-                        itemCount: snapshot.data!.snapshot.children.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            child: ListTile(
-                                onTap: () async {
-                                  var lat = list[index]['lat'];
-                                  var long = list[index]['long'];
-                                  String url = '';
-                                  String urlAppleMaps = '';
-                                  if (Platform.isAndroid) {
-                                    url =
-                                        'http://www.google.com/maps/place/$lat,$long';
-                                    if (await canLaunchUrl(Uri.parse(url))) {
-                                      await launchUrl(Uri.parse(url));
-                                    } else {
-                                      throw 'Could not launch $url';
-                                    }
-                                  } else {
-                                    urlAppleMaps =
-                                        'https://maps.apple.com/?q=$lat,$long';
-                                    url =
-                                        'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
-                                    if (await canLaunchUrl(Uri.parse(url))) {
-                                      await launchUrl(Uri.parse(url));
-                                    } else if (await canLaunchUrl(
-                                        Uri.parse(urlAppleMaps))) {
-                                      await launchUrl(Uri.parse(urlAppleMaps));
-                                    } else {
-                                      throw 'Could not launch $url';
-                                    }
-                                  }
-                                },
-                                tileColor: Colors.lightBlueAccent,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                title: Text(
-                                  list[index]['address'],
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white),
-                                ),
-                                subtitle: Text(
-                                  list[index]['time'],
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white),
-                                ),
-                                trailing: IconButton(
-                                  icon: const Icon(Icons.video_call,
-                                      color: Colors.red, size: 30),
-                                  onPressed: () {
-                                    Get.to(
-                                      () => LiveStreamingPage(
-                                        liveId: list[index]['videoId'],
-                                        isHost: false,
-                                      ),
-                                    );
-                                  },
-                                )),
+            return ListView.builder(
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  child: ListTile(
+                      onTap: () async {
+                        var lat = list['userLat'];
+                        var long = list['userLong'];
+                        String url = '';
+                        String urlAppleMaps = '';
+                        if (Platform.isAndroid) {
+                          url = 'http://www.google.com/maps/place/$lat,$long';
+                          if (await canLaunchUrl(Uri.parse(url))) {
+                            await launchUrl(Uri.parse(url));
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        } else {
+                          urlAppleMaps = 'https://maps.apple.com/?q=$lat,$long';
+                          url =
+                              'comgooglemaps://?saddr=&daddr=$lat,$long&directionsmode=driving';
+                          if (await canLaunchUrl(Uri.parse(url))) {
+                            await launchUrl(Uri.parse(url));
+                          } else if (await canLaunchUrl(
+                              Uri.parse(urlAppleMaps))) {
+                            await launchUrl(Uri.parse(urlAppleMaps));
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        }
+                      },
+                      tileColor: Colors.lightBlueAccent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      title: Text(
+                        list['userAddress'],
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white),
+                      ),
+                      subtitle: Text(
+                        // list['userID'],
+                        'Distance: ${calculateDistance(
+                            double.parse(list['userLat'].toString()),
+                            double.parse(list['userLong'].toString()),
+                            double.parse(list['responderLat'].toString()),
+                            double.parse(list['responderLong'].toString())).toStringAsFixed(2)} km',
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white),
+                      ),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.video_call,
+                            color: Colors.red, size: 30),
+                        onPressed: () {
+                          Get.to(
+                            () => LiveStreamingPage(
+                              liveId: list['userID'],
+                              isHost: false,
+                            ),
                           );
                         },
-                      );
-                    }
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  },
-                )
-               // Center(
-               //    child: Text(
-               //      'You are not available to see SOS requests',
-               //      style: TextStyle(
-               //        fontSize: 20.0,
-               //        color: Colors.red,
-               //        fontWeight: FontWeight.bold,
-               //      ),
-               //    ),
-               //  )),
-      ),
+                      )),
+                );
+              },
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      )
+          // Center(
+          //    child: Text(
+          //      'You are not available to see SOS requests',
+          //      style: TextStyle(
+          //        fontSize: 20.0,
+          //        color: Colors.red,
+          //        fontWeight: FontWeight.bold,
+          //      ),
+          //    ),
+          //  )),
+          ),
     );
   }
 
@@ -246,38 +260,41 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
     }
   }
 
-
-
   setResponderData() async {
-    userType='';
+    userType = '';
+    await smsController.handleLocationPermission();
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((position) async {
       try {
-        await userRef.child(user!.uid.toString()).get().then((DataSnapshot snapshot) {
+        await userRef
+            .child(user!.uid.toString())
+            .get()
+            .then((DataSnapshot snapshot) {
           if (snapshot.value != null) {
             Map<dynamic, dynamic> map = snapshot.value as dynamic;
-             userType=map['UserType'];
+            userType = map['UserType'];
             activeRespondersRef.child(user!.uid.toString()).set({
               "lat": position.latitude.toString(),
               "long": position.longitude.toString(),
               "responderType": userType,
+              "responderID": user!.uid.toString(),
             });
           } else {
             userType = 'DK BRuh';
           }
         });
       } catch (e) {
-        print(e);
+        debugPrint(e.toString());
       }
     });
-
   }
-
-
 
   getUserType() async {
     try {
-      await userRef.child(user!.uid.toString()).get().then((DataSnapshot snapshot) {
+      await userRef
+          .child(user!.uid.toString())
+          .get()
+          .then((DataSnapshot snapshot) {
         if (snapshot.value != null) {
           Map<dynamic, dynamic> map = snapshot.value as dynamic;
 
@@ -289,7 +306,5 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
     } catch (e) {
       print(e);
     }
-
-
   }
 }

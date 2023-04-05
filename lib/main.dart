@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: user == null ? const OnBoardingScreen() : const VerifyEmailPage(),
-      // home:const EmergenciesScreen(),
+      // home: user == null ? const OnBoardingScreen() : const VerifyEmailPage(),
+      home:const EmergenciesScreen(),
     );
   }
 }
