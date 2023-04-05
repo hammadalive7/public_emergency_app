@@ -25,18 +25,7 @@ class _EmergenciesScreenState extends State<EmergenciesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton:FloatingActionButton(
-        backgroundColor: Colors.lightBlueAccent,
-        foregroundColor: Colors.white,
-        shape: StadiumBorder(
-            side: BorderSide(
-                color: Colors.white24, width: 4)),
-        onPressed: () {
-          Get.to(() => ProfileScreen());
-        },
-        child: Icon(Icons.person_outline),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+
 
 
       extendBodyBehindAppBar: false,
