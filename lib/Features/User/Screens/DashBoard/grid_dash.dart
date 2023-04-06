@@ -5,7 +5,6 @@ import 'package:public_emergency_app/Features/User/Screens/AmbulanceOptions/Ambu
 import 'package:public_emergency_app/Features/User/Screens/FirefighterOptions/firefighter_options.dart';
 import 'package:public_emergency_app/Features/User/Screens/HospitalOptions/hospital_options.dart';
 import 'package:public_emergency_app/Features/User/Screens/PoliceOptions/police_options.dart';
-import 'package:public_emergency_app/Features/User/Screens/Profile/user_profile.dart';
 
 class GridDashboard extends StatelessWidget {
   Items item1 = Items(

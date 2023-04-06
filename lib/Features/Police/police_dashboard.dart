@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:public_emergency_app/Features/User/Screens/LiveStreaming/sos_page.dart';
 import 'package:public_emergency_app/Features/User/Screens/Profile/profile_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_switch/sliding_switch.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../User/Controllers/message_sending.dart';
@@ -14,7 +15,6 @@ import 'dart:math';
 
 class PoliceDashboard extends StatefulWidget {
   const PoliceDashboard({Key? key}) : super(key: key);
-
   @override
   State<PoliceDashboard> createState() => _PoliceDashboardState();
 }
@@ -29,6 +29,8 @@ String userType = '';
 final locationController = Get.put(messageController());
 late Position position;
 String status = '';
+bool _switchValue = false;
+
 
 double calculateDistance(lat1, lon1, lat2, lon2) {
   var p = 0.017453292519943295;
@@ -40,14 +42,29 @@ double calculateDistance(lat1, lon1, lat2, lon2) {
 
 class _PoliceDashboardState extends State<PoliceDashboard> {
   final user = FirebaseAuth.instance.currentUser;
-  var Value = false;
+  // var Value = false;
 
-  // late Stream<DatabaseEvent> stream = sosRef.child(user!.uid.toString()).onValue;
 
   @override
   void initState() {
     super.initState();
+    _loadSwitchValue();
+    debugPrint(_switchValue.toString());
   }
+
+  Future<void> _loadSwitchValue() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _switchValue = prefs.getBool('switchValue') ?? false;
+    });
+  }
+
+
+  Future<void> _saveSwitchValue(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('switchValue', value);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -120,15 +137,22 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
                       //   ),
                       // ),
                       SlidingSwitch(
-                        value: Value,
+                        value: _switchValue,
                         // initial value of the switch
                         width: 100.0,
                         // width of the switch
                         onChanged: (value) {
-                          Value = value;
                           setState(() {
+                            _saveSwitchValue(value);
+                            _switchValue = value;
                             status = getStatus();
-                          });
+                          }
+
+
+                          );
+                          _saveSwitchValue(value);
+                          // Value = value;
+
                         },
                         height: 40.0,
                         // borderRadius: 20.0,
@@ -136,9 +160,10 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
                         textOn: 'ON',
                         colorOn: Colors.green,
                         colorOff: Colors.red,
-                        onSwipe: () {},
+                        onSwipe: () {
+                          debugPrint(_switchValue.toString());
+                        },
                         onTap: () {},
-
                         onDoubleTap: () {},
                       ),
                     ],
@@ -164,8 +189,7 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
               itemCount: 1,
               itemBuilder: (context, index) {
                 return Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 40, horizontal: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 40, horizontal: 10),
                   child: ListTile(
                       onTap: () async {
                         var lat = list['userLat'];
@@ -273,7 +297,7 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
   }
 
   String getStatus() {
-    if (Value == true) {
+    if (_switchValue == true) {
       // setResponderData();
       setState(() {
         status = 'Available';
@@ -332,7 +356,7 @@ class _PoliceDashboardState extends State<PoliceDashboard> {
           .get()
           .then((DataSnapshot snapshot) {
         if (snapshot.value != null) {
-          Map<dynamic, dynamic> map = snapshot.value as dynamic;
+          Map<dynamic, dynamic> map = snapshot.value as dynamic ?? {};
 
           return map['UserType'];
         } else {
